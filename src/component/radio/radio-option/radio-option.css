@@ -1,0 +1,43 @@
+/*.formCheck {*/
+/*    display: inline-block;*/
+/*    min-height: 1.5rem;*/
+/*    padding-left: 1.5em;*/
+/*    margin-bottom: 0.125rem;*/
+/*    float: left;*/
+/*    margin-left: -1.5em;*/
+/*    grid-row: 1;*/
+/*}*/
+
+/*[type=radio]::before {*/
+/*    left: 0;*/
+/*    display: inline-block;*/
+/*    width: 16px;*/
+/*    height: 16px;*/
+/*    content: "";*/
+/*    border: 2px solid #333;*/
+/*    border-radius: 50% 45% 40% 50% / 40% 50% 50% 45%;*/
+/*}*/
+
+/*[type=radio]:checked::before {*/
+/*   background-color: var(--primary-dark-grey);*/
+/*}*/
+
+/*[type=radio] {*/
+/*    position: relative;*/
+/*    display: block;*/
+/*    width: 0;*/
+/*    height: 0;*/
+/*    -webkit-appearance: none;*/
+/*    -moz-appearance: none;*/
+/*    appearance: none;*/
+/*    cursor: pointer;*/
+/*    border: none;*/
+/*    flex-shrink: 0;*/
+/*}*/
+
+/*.radioButtonText {*/
+/*    display: inline-block;*/
+/*    box-sizing: border-box;*/
+/*    cursor: default;*/
+/*    margin-left: 18px;*/
+/*}*/
