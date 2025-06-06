@@ -5,7 +5,7 @@ import Select from '../../select'
 import ChoseImg from '../../choseImg'
 import Button from '../../button'
 
-const PICTURE = 'Picture';
+const PICTURE = 'PICTURE';
 const TEXT = 'TEXT';
 const OPTIONS = [TEXT, PICTURE];
 
@@ -21,9 +21,9 @@ const EditArticleParagraph = ({id, onDelete, type='', onAddBefore, data, updateD
     const getCreateArticleByType = () => {
         switch (paragraphType) {
             case TEXT:
-                return <TextArea id={id} labelText="Paragraph:" onChangeInput={(data) => updateData(data, id)} text={data}/>
+                return <TextArea id={id} labelText="Paragraph:" onChangeInput={(data) => updateData(data, id, null)} text={data}/>
             case PICTURE:
-                return <ChoseImg id={id} onChangeInput={(data, id) => updateData(data, id)} source={data}/>
+                return <ChoseImg id={id} onChangeInput={(data, id, img) => updateData(data, id, img)} source={data}/>
             default:
                 return ''
         }

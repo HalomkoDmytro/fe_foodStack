@@ -17,9 +17,8 @@ const extendWithAuthToken = (options, token) => ({
   }
 });
 
-const basicRequest = async (path, method, body) => {
+const basicRequest = async (path, requestMethod = 'GET', body) => {
   try {
-    const requestMethod = method || 'GET';
     const url = `${API}/${path}`;
     const authToken = getTokenFromStorage();
     const options = extendWithAuthToken(getOptions(requestMethod), authToken);
@@ -45,8 +44,12 @@ const basicRequest = async (path, method, body) => {
   }
 };
 
+const uploadFile = async (path, requestMethod = 'POST', formData) => {
+
+}
+
 const getTokenFromStorage = () => {
     return localStorage.getItem('auth');
 }
 
-export {getOptions, extendWithAuthToken, basicRequest};
+export {getOptions, extendWithAuthToken, uploadFile, basicRequest};

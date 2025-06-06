@@ -50,10 +50,13 @@ const CreateArticle = () => {
         addParagraph(prev => [...prev, newParagraph]);
     }
 
-    const updateData = (data, id) => {
+    const updateData = (data, id, file) => {
         paragraphList.forEach((prev) => {
                 if(prev.id === id) {
-                    prev.data = data
+                    prev.data = data;
+                    if(file) {
+                        prev.file = file
+                    }
                 }
             });
         addParagraph(paragraphList);

@@ -1,8 +1,7 @@
-import ArticleServiceAPI from '../api/articleServiceAPI'
+import ArticleAPI from '../api/articleAPI'
 
 
 const updateOrCreateArticle = data => {
-    console.log("post", data)
 
     const requestData = {
         id: data.id,
@@ -13,8 +12,7 @@ const updateOrCreateArticle = data => {
         paragraph: convertParagraph(data)
     }
 
-    console.log("requestData", requestData)
-    return new ArticleServiceAPI().updateArticle(requestData)
+    return new ArticleAPI().updateArticle(requestData)
             .then((res) => console.log("ArticleServiceAPI. updateOrCreateArticle: ", res))
             .catch((err) => console.log(err));
 }
@@ -26,7 +24,8 @@ const convertParagraph = data => {
             return {
                 orderPosition: par.order,
                 type: par.type,
-                data: par.data
+                data: par.data,
+                file: par.file
             }
         });
     }

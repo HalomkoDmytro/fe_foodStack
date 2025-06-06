@@ -16,9 +16,11 @@ const ChoseImg = ({id, label, onChangeInput, source=null}) => {
     const file = e.target.files?.[0];
     if (file && file.type.startsWith('image/')) {
       const url = URL.createObjectURL(file);
-      setImageSrc(url);
       if(onChangeInput) {
-          onChangeInput(url, id);
+          setImageSrc(url)
+          let img =  new FormData();
+          img.append("image", e.target.files[0]);
+          onChangeInput(url, id, img);
       }
     }
   };
@@ -45,7 +47,6 @@ const ChoseImg = ({id, label, onChangeInput, source=null}) => {
                 type="file"
                 id="formFile"
                 onChange={handleChange} />
-{/*                 onChange={(e) => handledOnChange(e, id)}  value={value} /> */}
 
             <div>
                 {getImg()}
