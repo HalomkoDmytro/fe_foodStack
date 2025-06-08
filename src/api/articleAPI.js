@@ -1,4 +1,4 @@
-import {extendWithAuthToken, getOptions, uploadFiles, basicRequest} from './api-utils';
+import {extendWithAuthToken, getOptions, basicRequest} from './api-utils';
 
 export default class ArticleAPI {
 
@@ -9,8 +9,8 @@ export default class ArticleAPI {
         return fetch(url, options);
     }
 
-    updateArticle = async (formData) => {
-        basicRequest(`article`, 'POST', formData);
+    updateArticle = async (body) => {
+        basicRequest(`article`, 'POST', body);
     }
 
 }

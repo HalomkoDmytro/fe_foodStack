@@ -26,7 +26,6 @@ const basicRequest = async (path, requestMethod = 'GET', body) => {
     if (body) {
       options.body = JSON.stringify(body);
     }
-
     const response = await fetch(url, options);
     const data = await response.json();
 
@@ -44,7 +43,20 @@ const basicRequest = async (path, requestMethod = 'GET', body) => {
   }
 };
 
-const uploadFile = async (path, requestMethod = 'POST', formData) => {
+const uploadFileRequest = async (path, requestMethod = 'POST', formData) => {
+    const url = `${API}/${path}`;
+    const authToken = getTokenFromStorage();
+    const options = extendWithAuthToken({'method': requestMethod, 'mode': 'cors'}, authToken);
+
+    options.body = formData;
+
+    try {
+        const res = await fetch(url, options);
+        return await res.text();;
+    } catch (err) {
+        console.error("Failed upload FILE:", err);
+        return false;
+    }
 
 }
 
@@ -52,4 +64,4 @@ const getTokenFromStorage = () => {
     return localStorage.getItem('auth');
 }
 
-export {getOptions, extendWithAuthToken, uploadFile, basicRequest};
+export {getOptions, extendWithAuthToken, uploadFileRequest, basicRequest};

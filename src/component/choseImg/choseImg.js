@@ -2,15 +2,7 @@ import React, {useState} from 'react';
 
 const ChoseImg = ({id, label, onChangeInput, source=null}) => {
 
-//     const [value, setValue] = useState(source);
     const [imageSrc, setImageSrc] = useState(source);
-
-    const handledOnChange = (e, id) => {
-//         setValue(e.target.value);
-        if(onChangeInput) {
-            onChangeInput(e.target.value, id);
-        }
-    }
 
   const handleChange = (e) => {
     const file = e.target.files?.[0];
