@@ -1,19 +1,19 @@
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+    gap: 1px;
 }
 
 .gallery-item {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 1px;
 }
 
 .gallery-item img {
     width: 100%;
     display: block;
-    border-radius: 8px;
+    border-radius: 1px;
     transition: 0.3s ease;
 }
 
