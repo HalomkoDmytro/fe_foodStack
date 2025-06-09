@@ -6,7 +6,6 @@ import EditArticleParagraph from './editArticleParagraph';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateOrCreateArticle} from '../../service/articleService';
 
-
 const PARAGRAPH = {
     id: 0,
     order: 0,

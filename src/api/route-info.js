@@ -4,6 +4,7 @@ import AppBody from '../component/appBody';
 import DesertList from '../component/desert-list';
 import ErrorIndicator from '../component/error-indicator';
 import CreateArticle from '../component/createArticle';
+import Encyclopedia from '../component/encyclopedia';
 
 const router = createBrowserRouter([
     {
@@ -15,11 +16,15 @@ const router = createBrowserRouter([
                 path: "home",
                 element: <AppBody><Home/></AppBody>
             },
-            ]
+        ]
     },
     {
         path: "/desert-list",
         element: <AppBody><DesertList/></AppBody>,
+    },
+    {
+            path: "/encyclopedia",
+            element: <AppBody><Encyclopedia/></AppBody>,
     },
     {
         path: "/create-article",

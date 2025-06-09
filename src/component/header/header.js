@@ -20,7 +20,7 @@ const Header = () => {
                                     <span className="visually-hidden">(current)</span>
                                 </ListItemLink>
                                 <Dropdown/>
-                                <ListItemLink href="/feature" text="Features"/>
+                                <ListItemLink href="/encyclopedia" text="Encyclopedia"/>
                                 <ListItemLink href="/create-article" text="Add Post"/>
                             </ul>
                             <Search />

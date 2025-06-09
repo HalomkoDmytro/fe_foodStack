@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 
 
 const Dropdown = () => {
@@ -15,9 +16,9 @@ const Dropdown = () => {
                 aria-haspopup="true"
                 aria-expanded="false">Recipe</a>
                 <div className={`dropdown-menu ${show ? 'show' : ''}`}>
-                      <a className="dropdown-item" href="#">Deserts</a>
-                      <a className="dropdown-item" href="#">Sous</a>
-                      <a className="dropdown-item" href="#">First course</a>
+                      <Link className="dropdown-item" to="/desert-list">Deserts</Link>
+                      <Link className="dropdown-item" to="#">Sous</Link>
+                      <Link className="dropdown-item" to="#">First course</Link>
 
                 </div>
             </li>

@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 const ListItemLink = ({href='#', text, children }) => {
     return (
         <li className="nav-item">
-            <a className="nav-link" href={href}>{text}</a>
+            <Link className="nav-link" to={href}>{text}</Link>
             {children}
         </li>
     )
