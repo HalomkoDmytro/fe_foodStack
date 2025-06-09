@@ -1,6 +1,10 @@
 import ArticleAPI from '../api/articleAPI'
 import FileAPI from '../api/fileAPI'
 
+const getArticleList = async (tag, from, to) => {
+
+}
+
 
 const updateOrCreateArticle =  async rawData => {
 
@@ -15,9 +19,9 @@ const updateOrCreateArticle =  async rawData => {
             }
 
             return new ArticleAPI().updateArticle(body)
-        //             .then((res) => console.log("ArticleServiceAPI. updateOrCreateArticle: ", res))
-        //             .catch((err) => console.log(err));
-        })
+                    .then((res) => console.log("updateOrCreateArticle res: ", res))
+                    .catch((err) => console.log("updateOrCreateArticle err", err));
+        });
 
 }
 
@@ -58,4 +62,4 @@ const convertParagraph = data => {
     return [];
 }
 
-export {updateOrCreateArticle};
+export {getArticleList, updateOrCreateArticle};

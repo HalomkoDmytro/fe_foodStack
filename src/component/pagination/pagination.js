@@ -8,7 +8,7 @@ const Pagination = ({first, from, to, last, currentNumber, handleClick}) => {
         for(let i = from; i<=to; i++) {
             let isActive = i === currentNumber ? 'active' : '';
             res.push(
-                <li className={`page-item ${isActive}`}>
+                <li className={`page-item ${isActive}`} key={i}>
                     <a className="page-link"
                         onClick={(e) => {console.log("click")}}>{i}</a>
                 </li>

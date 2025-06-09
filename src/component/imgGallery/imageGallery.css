@@ -1,0 +1,39 @@
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.gallery-item img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    transition: 0.3s ease;
+}
+
+.gallery-item:hover img {
+    filter: brightness(60%);
+}
+
+.description {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    opacity: 0;
+    transition: 0.3s ease;
+    font-size: 14px;
+}
+
+.gallery-item:hover .description {
+    opacity: 1;
+}
