@@ -8,12 +8,19 @@ import './header.css'
 
 const Header = () => {
 
+    const [collapse, setCollapse] = useState(false);
+
+    const isCollapse = () => collapse ? 'collapse' : '';
+
     return (
         <div className='navbar navbar-expand-lg fixed-top bg-primary' data-bs-theme="dark">
-            <div className="  container">
+            <div className="  container-fluid">
                     <Link className="navbar-brand" to={'/'}>MyCookBook</Link>
-                    <div className="navbar-collapse collapse" id="navbarResponsive" >
-                        <div className="collapse navbar-collapse" id="navbarColor01">
+                        <button className="navbar-toggler" type="button" onClick={e=>{setCollapse(prev => !prev)}}>
+                          <span className="navbar-toggler-icon"></span>
+                        </button>
+                    <div className={`navbar-collapse ${isCollapse()}`} id="navbarResponsive" >
+                        <div className={`${isCollapse()} navbar-collapse`} id="navbarColor01">
                             <ul className="navbar-nav me-auto">
 
                                 <ListItemLink href="/home" text="Home">
@@ -28,6 +35,7 @@ const Header = () => {
                     </div>
             </div>
         </div>
+
     )
 
 }
