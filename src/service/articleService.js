@@ -1,8 +1,8 @@
 import ArticleAPI from '../api/articleAPI'
 import FileAPI from '../api/fileAPI'
 
-const getArticleList = async (tag, from, to) => {
-
+const getArticleList = async (theme = 'DESSERT', page = 0, size = 8, sortBy = 'id', sortDir = "ASC") => {
+    return new ArticleAPI().getArticleByTheme({theme, page, size, sortBy, sortDir});
 }
 
 

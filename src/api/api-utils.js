@@ -29,17 +29,9 @@ const basicRequest = async (path, requestMethod = 'GET', body) => {
     const response = await fetch(url, options);
     const data = await response.json();
 
-    if (data.response) {
-      return {success: true, data: data.response.data};
-    }
-
-    return {success: false, originalResponse: data};
+    return data;
   } catch (error) {
-    return {
-        success: false,
-        error: true,
-        errorDetails: error
-     };
+    console.log(error);
   }
 };
 

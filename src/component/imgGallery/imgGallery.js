@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Pagination from '../pagination';
 import FullWidthCenter from '../fullWidthCenter';
+import {getArticleList} from '../../service/articleService';
 
 import './imageGallery.css';
 
@@ -15,29 +16,58 @@ const imagesTest = [
   { src: "https://png.pngtree.com/png-vector/20240723/ourmid/pngtree-fast-food-dishes-with-drinks-and-desserts-sketch-png-image_13013852.png", description: "Description 5" },
 ];
 
-const ImageGallery = () => {
+const INIT_PAGING = {pageNumber: 0, pageSize: 8, totalElements: 1, totalPages: 1,
+    first: true, hasNext: false, hasPrevious: false, last: false };
+
+const ImageGallery = ({theme='DESERT'}) => {
 
     const [images, setImages] = useState();
+    const [paginationInfo, setPagination] = useState(INIT_PAGING)
 
     useEffect(() => {
-        console.log("component did mount")
+        getArticleList().then(res => updateArticleList(res));
     }, []);
+
+    const updateArticleList = (res) => {
+        if(res){
+            if(res.content) {
+                setImages(res.content);
+            };
+        const {pageNumber, pageSize, totalElements, totalPages,first,  hasNext,  hasPrevious,  last} = res;
+            setPagination({pageNumber, pageSize, totalElements, totalPages,first,  hasNext,  hasPrevious,  last});
+        }
+    }
+
+    const updatePage = (page) => {
+        getArticleList(theme='DESSERT', page=page - 1).then(res => updateArticleList(res));
+    }
+
+    const getImages = () =>  {
+        if(images && images.length > 0) {
+            return images.map((img, i) => (
+               <div className="gallery-item" key={i} onClick={() => console.log(img) }>
+                 <img src={img.srcImg} alt="" />
+                 <div className="description">
+                     <h1>{img.title}</h1>
+                     <p>{img.description}</p>
+                 </div>
+               </div>  ))
+        }
+    }
+
+    const getPagination = () => {
+        if(paginationInfo && paginationInfo.totalPages > 1) {
+            return <Pagination from={1} to={paginationInfo.totalPages} updatePage={(e) => updatePage(e)}/>
+        }
+    }
 
     return (
         <div>
             <div className="gallery">
-              {imagesTest.map((img, i) => (
-                <div className="gallery-item" key={i}>
-                  <img src={img.src} alt="" />
-                  <div className="description">
-                      <h1>{img.description}</h1>
-                      <p>some rand text </p>
-                  </div>
-                </div>
-              ))}
+                {getImages()}
             </div>
             <FullWidthCenter>
-                <Pagination from={1} to={10}/>
+                {getPagination()}
             </FullWidthCenter>
         </div>
     )

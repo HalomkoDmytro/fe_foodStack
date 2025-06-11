@@ -10,7 +10,7 @@ const Header = () => {
 
     const [collapse, setCollapse] = useState(false);
 
-    const isCollapse = () => collapse ? 'collapse' : '';
+    const isCollapse = () => collapse ? "" : 'collapse';
 
     return (
         <div className='navbar navbar-expand-lg fixed-top bg-primary' data-bs-theme="dark">

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const Pagination = ({first, from, to, last, currentNumber, handleClick}) => {
+const Pagination = ({first, from, to, last, currentNumber, updatePage}) => {
 
     const listPaginationElement = () => {
         let res = [];
@@ -10,7 +10,7 @@ const Pagination = ({first, from, to, last, currentNumber, handleClick}) => {
             res.push(
                 <li className={`page-item ${isActive}`} key={i}>
                     <a className="page-link"
-                        onClick={(e) => {console.log("click")}}>{i}</a>
+                        onClick={(e) => {updatePage(i)}}>{i}</a>
                 </li>
             )
         }

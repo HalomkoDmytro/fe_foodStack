@@ -9,6 +9,10 @@ export default class ArticleAPI {
         return fetch(url, options);
     }
 
+    async getArticleByTheme(data) {
+        return basicRequest('article/theme', 'POST', data);
+    }
+
     updateArticle = async (body) => {
         basicRequest(`article`, 'POST', body);
     }
