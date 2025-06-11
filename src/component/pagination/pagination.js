@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 const Pagination = ({first, totalPages, last, pageNumber, updatePage}) => {
 
@@ -37,7 +37,7 @@ const Pagination = ({first, totalPages, last, pageNumber, updatePage}) => {
                 </li>
             </ul>
         </div>
-        )
+    )
 }
 
 export default Pagination;

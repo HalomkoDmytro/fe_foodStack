@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Pagination from '../pagination';
 import FullWidthCenter from '../fullWidthCenter';
 import {getArticleList} from '../../service/articleService';
+import { Link } from "react-router-dom";
 
 import './imageGallery.css';
 
@@ -35,13 +36,15 @@ const ImageGallery = ({theme='DESERT'}) => {
     const getImages = () =>  {
         if(images && images.length > 0) {
             return images.map((img, i) => (
-               <div className="gallery-item" key={i} onClick={() => console.log(img) }>
-                 <img src={img.srcImg} alt="" />
-                 <div className="description">
-                     <h1>{img.title}</h1>
-                     <p>{img.description}</p>
-                 </div>
-               </div>  ))
+                <Link to={`/article`}>
+                   <div className="gallery-item" key={i} onClick={() => console.log("IMG", img) }>
+                     <img src={img.srcImg} alt="" />
+                     <div className="description">
+                         <h1>{img.title}</h1>
+                         <p>{img.description}</p>
+                     </div>
+                   </div>
+               </Link> ))
         }
     }
 
