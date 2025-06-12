@@ -7,7 +7,6 @@ const DesertList = () => {
 
     return (
         <div>
-            Desert List
             <ImgGallery/>
         </div>
     )
