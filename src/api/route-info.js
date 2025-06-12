@@ -10,32 +10,30 @@ import Article from '../component/article';
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <AppBody><Home/></AppBody>,
         errorElement: <ErrorIndicator/>,
         children: [
             {
                 path: "home",
                 element: <AppBody><Home/></AppBody>
             },
+            {
+                path: "article",
+                element: <AppBody><Article/></AppBody>,
+            },
+            {
+                path: "/create-article",
+                element: <AppBody><CreateArticle/></AppBody>,
+            },
+            {
+                path: "/desert-list",
+                element: <AppBody><DesertList/></AppBody>,
+            },
+            {
+                    path: "/encyclopedia",
+                    element: <AppBody><Encyclopedia/></AppBody>,
+            },
         ]
     },
-    {
-        path: "/desert-list",
-        element: <AppBody><DesertList/></AppBody>,
-    },
-    {
-            path: "/encyclopedia",
-            element: <AppBody><Encyclopedia/></AppBody>,
-    },
-    {
-        path: "/create-article",
-        element: <AppBody><CreateArticle/></AppBody>,
-    },
-    {
-        path: "/article",
-        element: <AppBody><Article/></AppBody>,
-    }
-
 ]);
 
 export  {router};

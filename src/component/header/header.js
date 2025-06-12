@@ -14,8 +14,8 @@ const Header = () => {
 
     return (
         <div className='navbar navbar-expand-lg fixed-top bg-primary' data-bs-theme="dark">
-            <div className="  container-fluid">
-                    <Link className="navbar-brand" to={'/'}>MyCookBook</Link>
+            <div className="  container">
+                    <Link className="navbar-brand" to={'/home'}>MyCookBook</Link>
                         <button className="navbar-toggler" type="button" onClick={e=>{setCollapse(prev => !prev)}}>
                           <span className="navbar-toggler-icon"></span>
                         </button>
