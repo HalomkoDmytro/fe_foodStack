@@ -1,18 +1,17 @@
 import React, {useState} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
+import ImageGallery from '../imageGallery';
 
 
 import './home.css';
 
 const Home = () => {
-    const count = useSelector((state) => state.counter.value)
 
     return (
         <div>
 
         <div className="home">
-            <h1>Home {count}</h1>
+            <h1>Home</h1>
+{/*             <ImageGallery/> */}
         </div>
         </div>
     );

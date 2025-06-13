@@ -1,6 +1,11 @@
 import ArticleAPI from '../api/articleAPI'
 import FileAPI from '../api/fileAPI'
 
+
+const getArticle = async (id) => {
+    return new ArticleAPI().getArticle(id);
+}
+
 const getArticleList = async (theme = 'DESSERT', page = 0, size = 8, sortBy = 'id', sortDir = "ASC") => {
     return new ArticleAPI().getArticleByTheme({theme, page, size, sortBy, sortDir});
 }
@@ -62,4 +67,4 @@ const convertParagraph = data => {
     return [];
 }
 
-export {getArticleList, updateOrCreateArticle};
+export {getArticle, getArticleList, updateOrCreateArticle};

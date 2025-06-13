@@ -37,12 +37,11 @@ const ImageGallery = ({theme='DESERT'}) => {
 
     const getImages = () =>  {
         if(images && images.length > 0) {
-
             return images.map((img, i) => {
                 const imgSrc = img.srcImg ? img.srcImg : '/img/cake.png';
 
-                return (<Link to={`/article`} key={i}>
-                   <div className="gallery-item" key={i} onClick={() => dispatch(setArticle(img))  }>
+                return (<Link to={`/article/${img.id}`} key={i}>
+                   <div className="gallery-item" key={i} onClick={() => dispatch(setArticle(img)) }>
                      <img src={imgSrc} alt="img should be here" />
                      <div className="description">
                          <h1>{img.title}</h1>

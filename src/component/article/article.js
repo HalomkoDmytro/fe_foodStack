@@ -1,9 +1,18 @@
-import React, {useState} from 'react';
-import { useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import { useParams } from 'react-router-dom';
+import {getArticle} from '../../service/articleService';
 
 const Article = () => {
 
-    const article = useSelector((state) => state.article.data);
+    const [article, setArticle] = useState(null);
+
+        const { idArticle } = useParams();
+        useEffect(() => {
+            getArticle(idArticle).then(res => {
+                console.log("res", res)
+                setArticle(res)
+            });
+        }, []);
 
     const getParagraph = (par) => {
         switch (par.type) {
@@ -16,25 +25,25 @@ const Article = () => {
         }
     }
 
-    const getArticle = () => {
+    const getArticleComp = () => {
+        if (article) {
+            const title = article.title ? <h1>{article.title}</h1> : '';
+            const paragraphList = !article.paragraph ? '' : article.paragraph.map(par =>
+                <div key={par.id}>
+                    test tets test
+                    {getParagraph(par)}
+                </div>
+            ) ;
 
-        const title = article.title ? <h1>{article.title}</h1> : '';
-        const paragraphList = !article.paragraph ? '' : article.paragraph.map(par =>
-            <div key={par.id}>
-                test tets test
-                {getParagraph(par)}
-            </div>
-        ) ;
-
-        return <div key={article.id}>
-                {title}
-                {paragraphList}
-            </div>
+            return <div key={article.id}>
+                    {title}
+                    {paragraphList}
+                </div>
+        }
     }
 
-    console.log("this article: ", article);
     return (
-        <div>{getArticle()}</div>
+        <div>{getArticleComp()}</div>
     )
 }
 

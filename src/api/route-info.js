@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "article",
+        path: "/article/:idArticle",
         element: <AppBody><Article/></AppBody>,
         errorElement: <ErrorPage/>,
     },

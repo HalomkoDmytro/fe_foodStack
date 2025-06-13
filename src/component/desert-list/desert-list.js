@@ -1,5 +1,5 @@
 import React from 'react';
-import ImgGallery from '../imgGallery';
+import ImageGallery from '../imageGallery';
 
 import './desert-list.css'
 
@@ -7,7 +7,7 @@ const DesertList = () => {
 
     return (
         <div>
-            <ImgGallery/>
+            <ImageGallery/>
         </div>
     )
 }
