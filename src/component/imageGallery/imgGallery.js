@@ -5,6 +5,8 @@ import {getArticleList} from '../../service/articleService';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { setArticle } from '../../utils/articleSlice';
+import Progress from '../progress';
+
 
 import './imageGallery.css';
 
@@ -15,10 +17,14 @@ const ImageGallery = ({theme='DESERT'}) => {
 
     const dispatch = useDispatch();
     const [images, setImages] = useState();
-    const [pagInfo, setPagination] = useState(INIT_PAGING)
+    const [pagInfo, setPagination] = useState(INIT_PAGING);
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        getArticleList().then(res => updateArticleList(res));
+        getArticleList().then(res => {
+            updateArticleList(res);
+            setLoading(false);
+        });
     }, []);
 
     const updateArticleList = (res) => {
@@ -36,9 +42,13 @@ const ImageGallery = ({theme='DESERT'}) => {
     }
 
     const getImages = () =>  {
+        if(isLoading) {
+            return <div style={{paddingLeft: '50px', minWidth: '800px'}}><Progress color={"YELLOW"}/></div>
+        }
+
         if(images && images.length > 0) {
             return images.map((img, i) => {
-                const imgSrc = img.srcImg ? img.srcImg : '/img/cake.png';
+                const imgSrc = img.srcImg ? img.srcImg : '/img/dish_template.png';
 
                 return (<Link to={`/article/${img.id}`} key={i}>
                    <div className="gallery-item" key={i} onClick={() => dispatch(setArticle(img)) }>

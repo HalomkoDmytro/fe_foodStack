@@ -1,0 +1,6 @@
+.loader {
+    width: 10%;
+    animation: l2 7s linear infinite;
+}
+
+@keyframes l2 {to{width: 100%}}
