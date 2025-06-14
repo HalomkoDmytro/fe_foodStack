@@ -13,7 +13,7 @@ import './imageGallery.css';
 const INIT_PAGING = {pageNumber: 0, pageSize: 8, totalElements: 1, totalPages: 1,
     first: true, hasNext: false, hasPrevious: false, last: false };
 
-const ImageGallery = ({theme='DESERT'}) => {
+const ImageGallery = ({theme='DESSERT'}) => {
 
     const dispatch = useDispatch();
     const [images, setImages] = useState();
@@ -38,7 +38,7 @@ const ImageGallery = ({theme='DESERT'}) => {
     }
 
     const updatePage = (page) => {
-        getArticleList(theme='DESSERT', page).then(res => updateArticleList(res));
+        getArticleList(theme, page).then(res => updateArticleList(res));
     }
 
     const getImages = () =>  {

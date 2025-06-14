@@ -30,7 +30,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>,
     },
     {
-        path: "/desert-list",
+        path: "/dessert-list",
         element: <AppBody><DesertList/></AppBody>,
         errorElement: <ErrorPage/>,
     },

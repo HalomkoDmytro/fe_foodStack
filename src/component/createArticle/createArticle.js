@@ -19,6 +19,7 @@ const CreateArticle = () => {
     const [lastId, updateId] = useState(0);
     const [h1Title, updateH1Title] = useState('');
     const [description, updateDescription] = useState('');
+    const [theme, setTheme] = useState('');
 
     const addParagraphClick = () => {
         const newParagraph = {...PARAGRAPH};
@@ -92,6 +93,7 @@ const CreateArticle = () => {
         updateOrCreateArticle({
             id: null,
             h1Title,
+            theme,
             description,
             titleImg: null,
             paragraphList
@@ -103,7 +105,9 @@ const CreateArticle = () => {
 
             <TextArea labelText="Title:" initValue={h1Title} onChangeInput={updateH1Title}/>
             <TextArea labelText="Description:" initValue={description} onChangeInput={updateDescription}/>
-            <Select title="Select category" selectOptions={["Blog", "Desert", "Main course"]}/>
+
+            <Select title="Select category" selectOptions={["DESSERT", "Main course", "Souse"]} onChange={val => setTheme(val)}/>
+
             {getListParagraphComponent()}
             <p></p>
             <div><Button text="+ add new paragraph" btnStyle="btn-info" onClick={addParagraphClick}/></div>

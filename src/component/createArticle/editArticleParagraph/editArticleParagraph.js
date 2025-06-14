@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react';
 
 import TextArea from '../../textArea';
+import ListGroup from '../../listGroup';
 import Select from '../../select'
 import ChoseImg from '../../choseImg'
 import Button from '../../button'
 
 const PICTURE = 'PICTURE';
 const TEXT = 'TEXT';
-const OPTIONS = [TEXT, PICTURE];
+const LIST_GROUPS = "LIST_GROUPS";
+const OPTIONS = [TEXT, PICTURE, LIST_GROUPS];
 
 const EditArticleParagraph = ({id, onDelete, type='', onAddBefore, data, updateData, updateElementType}) => {
 
@@ -24,6 +26,8 @@ const EditArticleParagraph = ({id, onDelete, type='', onAddBefore, data, updateD
                 return <TextArea id={id} labelText="Paragraph:" onChangeInput={(data) => updateData(data, id, null)} text={data}/>
             case PICTURE:
                 return <ChoseImg id={id} onChangeInput={(data, id, img) => updateData(data, id, img)} source={data}/>
+            case LIST_GROUPS:
+                return <ListGroup id={id} onChangeInput={(data, id) => updateData(data, id, null)} listData={data}/>
             default:
                 return ''
         }
@@ -31,7 +35,7 @@ const EditArticleParagraph = ({id, onDelete, type='', onAddBefore, data, updateD
 
     return(
         <div key={id}>
-            <Select title="Select category" selectOptions={OPTIONS} onChange={(type) => updateType(type, id)}/>
+            <Select title="Paragraph type:" selectOptions={OPTIONS} onChange={(type) => updateType(type, id)}/>
 
             {getCreateArticleByType()}
 

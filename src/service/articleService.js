@@ -16,6 +16,7 @@ const updateOrCreateArticle =  async rawData => {
     updateLinkToUploadedFile(rawData).then(data => {
             const body = {
                 id: data.id,
+                theme: data.theme,
                 title: data.h1Title,
                 description: data.description,
                 titlePicture: data.titlePicture,

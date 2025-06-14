@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import {getArticle} from '../../service/articleService';
 import Progress from '../progress';
+import FullWidthCenter from '../fullWidthCenter';
 
 
 const Article = () => {
@@ -48,7 +49,7 @@ const Article = () => {
     }
 
     return (
-        <div>{getArticleComp()}</div>
+        <FullWidthCenter>{getArticleComp()}</FullWidthCenter>
     )
 }
 
