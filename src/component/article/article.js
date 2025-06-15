@@ -4,14 +4,18 @@ import {getArticle} from '../../service/articleService';
 import Progress from '../progress';
 import FullWidthCenter from '../fullWidthCenter';
 import ListGroup from '../listGroup';
+import Button from '../button';
+import {deleteArticle} from '../../service/articleService';
+import { useNavigate } from "react-router-dom";
 
 
 const Article = () => {
 
     const [article, setArticle] = useState(null);
     const [isLoading, setLoading] = useState(true);
-
     const { idArticle } = useParams();
+    const navigate = useNavigate();
+
     useEffect(() => {
         getArticle(idArticle).then(res => {
             setArticle(res);
@@ -44,15 +48,22 @@ const Article = () => {
                 </div>
             ) ;
 
-            return <div key={article.id}>
+            return <FullWidthCenter key={article.id}>
                     {title}
                     {paragraphList}
-                </div>
+                </FullWidthCenter>
         }
     }
 
+    const handleOnDelete = () => {
+        deleteArticle(idArticle).then(() => navigate("/home"));
+    }
+
     return (
-        <FullWidthCenter>{getArticleComp()}</FullWidthCenter>
+        <div>
+            {getArticleComp()}
+            <Button text={"Delete"} btnStyle={"btn-danger"} onClick={()=> handleOnDelete()}/>
+        </div>
     )
 }
 

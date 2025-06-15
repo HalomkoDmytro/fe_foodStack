@@ -3,7 +3,7 @@ import {basicRequest} from './api-utils';
 export default class ArticleAPI {
 
     async getArticle(id) {
-            return basicRequest(`article/${id}`, 'GET', null);
+        return basicRequest(`article/${id}`, 'GET', null);
     }
 
     async getAllArticle(data) {
@@ -16,6 +16,10 @@ export default class ArticleAPI {
 
     updateArticle = async (body) => {
         basicRequest(`article`, 'POST', body);
+    }
+
+    deleteArticle = async (id) => {
+        basicRequest(`article/${id}`, 'DELETE', null);
     }
 
 }

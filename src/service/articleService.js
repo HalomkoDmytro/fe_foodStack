@@ -14,6 +14,9 @@ const getArticleList = async ({theme = 'DESSERT', page = 0, size = 8, sortBy = '
     return new ArticleAPI().getArticleByTheme({theme, page, size, sortBy, sortDir});
 }
 
+const deleteArticle = async (id) => {
+    return new ArticleAPI().deleteArticle(id);
+}
 
 const updateOrCreateArticle =  async rawData => {
 
@@ -72,4 +75,4 @@ const convertParagraph = data => {
     return [];
 }
 
-export {getArticle, getAllArticleList, getArticleList, updateOrCreateArticle};
+export {getArticle, getAllArticleList, getArticleList, updateOrCreateArticle, deleteArticle};
