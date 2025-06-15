@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import {getArticle} from '../../service/articleService';
 import Progress from '../progress';
 import FullWidthCenter from '../fullWidthCenter';
+import ListGroup from '../listGroup';
 
 
 const Article = () => {
@@ -24,6 +25,8 @@ const Article = () => {
                 return <div key={par.id}>{par.data}</div>
             case "PICTURE":
                 return <div><img key={par.id} src={par.data} alt="Img should be here" style={{ height: '300px' }}/></div>
+            case "LIST_GROUPS":
+                return <ListGroup key={par.id} data={par.data}/>
             default:
                 return ''
         }

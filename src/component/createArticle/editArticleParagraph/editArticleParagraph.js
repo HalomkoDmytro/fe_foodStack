@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 import TextArea from '../../textArea';
-import ListGroup from '../../listGroup';
+import ListGroupEdit from '../../listGroupEdit';
 import Select from '../../select'
 import ChoseImg from '../../choseImg'
 import Button from '../../button'
@@ -27,7 +27,7 @@ const EditArticleParagraph = ({id, onDelete, type='', onAddBefore, data, updateD
             case PICTURE:
                 return <ChoseImg id={id} onChangeInput={(data, id, img) => updateData(data, id, img)} source={data}/>
             case LIST_GROUPS:
-                return <ListGroup id={id} onChangeInput={(data, id) => updateData(data, id, null)} listData={data}/>
+                return <ListGroupEdit id={id} onChangeInput={(data, id) => updateData(data, id, null)} listData={data}/>
             default:
                 return ''
         }
