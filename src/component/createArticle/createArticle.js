@@ -5,6 +5,7 @@ import TextArea from '../textArea';
 import EditArticleParagraph from './editArticleParagraph';
 import { useSelector, useDispatch } from 'react-redux';
 import {updateOrCreateArticle} from '../../service/articleService';
+import { useNavigate } from "react-router-dom";
 
 const PARAGRAPH = {
     id: 0,
@@ -15,6 +16,7 @@ const PARAGRAPH = {
 
 const CreateArticle = () => {
 
+    const navigate = useNavigate();
     const [paragraphList, addParagraph] = useState([]);
     const [lastId, updateId] = useState(0);
     const [h1Title, updateH1Title] = useState('');
@@ -97,7 +99,8 @@ const CreateArticle = () => {
             description,
             titleImg: null,
             paragraphList
-        })
+        });
+        navigate("/home");
     }
 
     return (

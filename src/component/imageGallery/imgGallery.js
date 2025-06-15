@@ -13,7 +13,7 @@ import './imageGallery.css';
 const INIT_PAGING = {pageNumber: 0, pageSize: 8, totalElements: 1, totalPages: 1,
     first: true, hasNext: false, hasPrevious: false, last: false };
 
-const ImageGallery = ({theme='DESSERT'}) => {
+const ImageGallery = ({theme='DESSERT', getArticleMethod}) => {
 
     const dispatch = useDispatch();
     const [images, setImages] = useState();
@@ -21,7 +21,7 @@ const ImageGallery = ({theme='DESSERT'}) => {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        getArticleList().then(res => {
+        getArticleMethod().then(res => {
             updateArticleList(res);
             setLoading(false);
         });
@@ -43,7 +43,7 @@ const ImageGallery = ({theme='DESSERT'}) => {
 
     const getImages = () =>  {
         if(isLoading) {
-            return <div style={{paddingLeft: '50px', minWidth: '800px'}}><Progress color={"YELLOW"}/></div>
+            return <div style={{paddingLeft: '50px', minWidth: '800px'}}><Progress/></div>
         }
 
         if(images && images.length > 0) {

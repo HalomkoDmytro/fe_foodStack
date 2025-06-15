@@ -6,7 +6,11 @@ const getArticle = async (id) => {
     return new ArticleAPI().getArticle(id);
 }
 
-const getArticleList = async (theme = 'DESSERT', page = 0, size = 8, sortBy = 'id', sortDir = "ASC") => {
+const getAllArticleList = async (page = 0, size = 8, sortBy = 'id', sortDir = "DESC") => {
+    return new ArticleAPI().getAllArticle({page, size, sortBy, sortDir});
+}
+
+const getArticleList = async (theme = 'DESSERT', page = 0, size = 8, sortBy = 'id', sortDir = "DESC") => {
     return new ArticleAPI().getArticleByTheme({theme, page, size, sortBy, sortDir});
 }
 
@@ -68,4 +72,4 @@ const convertParagraph = data => {
     return [];
 }
 
-export {getArticle, getArticleList, updateOrCreateArticle};
+export {getArticle, getAllArticleList, getArticleList, updateOrCreateArticle};

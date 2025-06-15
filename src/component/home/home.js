@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ImageGallery from '../imageGallery';
-import Progress from '../progress';
+import {getAllArticleList} from '../../service/articleService';
 
 
 import './home.css';
@@ -12,8 +12,8 @@ const Home = () => {
 
         <div className="home">
             <h1>Home</h1>
-            <Progress/>
-{/*             <ImageGallery/> */}
+
+            <ImageGallery getArticleMethod={getAllArticleList}/>
         </div>
         </div>
     );

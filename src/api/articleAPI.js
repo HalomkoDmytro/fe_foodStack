@@ -1,9 +1,13 @@
-import {extendWithAuthToken, getOptions, basicRequest} from './api-utils';
+import {basicRequest} from './api-utils';
 
 export default class ArticleAPI {
 
     async getArticle(id) {
             return basicRequest(`article/${id}`, 'GET', null);
+    }
+
+    async getAllArticle(data) {
+        return basicRequest('article/light', 'POST', data);
     }
 
     async getArticleByTheme(data) {

@@ -1,13 +1,13 @@
 import React from 'react';
 import ImageGallery from '../imageGallery';
+import {getArticleList} from '../../service/articleService';
 
-import './desert-list.css'
 
 const DesertList = () => {
 
     return (
         <div>
-            <ImageGallery/>
+            <ImageGallery getArticleMethod={getArticleList}/>
         </div>
     )
 }
