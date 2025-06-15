@@ -109,7 +109,7 @@ const CreateArticle = () => {
             <TextArea labelText="Title:" initValue={h1Title} onChangeInput={updateH1Title}/>
             <TextArea labelText="Description:" initValue={description} onChangeInput={updateDescription}/>
 
-            <Select title="Select category" selectOptions={["DESSERT", "Main course", "Souse"]} onChange={val => setTheme(val)}/>
+            <Select title="Select category" selectOptions={["DESSERT", "MAIN_COURSE", "Souse"]} onChange={val => setTheme(val)}/>
 
             {getListParagraphComponent()}
             <p></p>

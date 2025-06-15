@@ -21,7 +21,7 @@ const ImageGallery = ({theme='DESSERT', getArticleMethod}) => {
     const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
-        getArticleMethod().then(res => {
+        getArticleMethod({theme}).then(res => {
             updateArticleList(res);
             setLoading(false);
         });
@@ -38,7 +38,7 @@ const ImageGallery = ({theme='DESSERT', getArticleMethod}) => {
     }
 
     const updatePage = (page) => {
-        getArticleList(theme, page).then(res => updateArticleList(res));
+        getArticleList({theme, page}).then(res => updateArticleList(res));
     }
 
     const getImages = () =>  {

@@ -1,6 +1,6 @@
 import React from 'react';
-import ImageGallery from '../imageGallery';
-import {getArticleList} from '../../service/articleService';
+import ImageGallery from '../../imageGallery';
+import {getArticleList} from '../../../service/articleService';
 
 
 const DesertList = () => {

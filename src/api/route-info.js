@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from '../component/home';
 import AppBody from '../component/appBody';
-import DesertList from '../component/desert-list';
+import DesertList from '../component/recipe/desertList';
+import MainCourseList from '../component/recipe/mainCourseList';
 import CreateArticle from '../component/createArticle';
 import Encyclopedia from '../component/encyclopedia';
 import Article from '../component/article';
@@ -30,10 +31,20 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage/>,
     },
     {
-        path: "/dessert-list",
-        element: <AppBody><DesertList/></AppBody>,
+        path: "/recipe",
         errorElement: <ErrorPage/>,
+        children: [
+            {
+               path: "dessert-list",
+               element: <AppBody><DesertList/></AppBody>,
+           },
+           {
+               path: "main-course",
+               element: <AppBody><MainCourseList/></AppBody>,
+           },
+       ],
     },
+
     {
         path: "/encyclopedia",
         element: <AppBody><Encyclopedia/></AppBody>,

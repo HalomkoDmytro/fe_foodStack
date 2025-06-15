@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import ImageGallery from '../imageGallery';
 import {getAllArticleList} from '../../service/articleService';
 
@@ -9,12 +9,9 @@ const Home = () => {
 
     return (
         <div>
-
-        <div className="home">
             <h1>Home</h1>
 
             <ImageGallery getArticleMethod={getAllArticleList}/>
-        </div>
         </div>
     );
 

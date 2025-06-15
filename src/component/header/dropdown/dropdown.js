@@ -16,9 +16,9 @@ const Dropdown = () => {
                 aria-haspopup="true"
                 aria-expanded="false">Recipe</a>
                 <div className={`dropdown-menu ${show ? 'show' : ''}`}>
-                      <Link className="dropdown-item" to="/dessert-list">Deserts</Link>
-                      <Link className="dropdown-item" to="#">Sous</Link>
-                      <Link className="dropdown-item" to="#">First course</Link>
+                      <Link className="dropdown-item" to="/recipe/dessert-list">Deserts</Link>
+{/*                       <Link className="dropdown-item" to="#">Sous</Link> */}
+                      <Link className="dropdown-item" to="/recipe/main-course">Main Course</Link>
 
                 </div>
             </li>
