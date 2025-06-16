@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {searchArticleList} from '../../service/articleService';
+import { useSelector } from 'react-redux';
 
 
 const SearchResult = ({searchRequest=''}) => {
 
+    const text = useSelector(state => state.text.value);
     const [request, setRequest] = useState(searchRequest);
     const [resultList, setResultList] = useState([]);
 
@@ -11,9 +13,16 @@ const SearchResult = ({searchRequest=''}) => {
         startSearch();
     }, []);
 
-    const startSearch = () => {
-        if(request && request.length > 0) {
-            searchArticleList({request}).then(res => {
+    useEffect(() => {
+        setRequest(text);
+        startSearch(text);
+    }, [text]);
+
+    const startSearch = (param) => {
+
+        if((param && param.length>0) || (request && request.length > 0)) {
+            const val = param && param.length>0 ? param : request;
+            searchArticleList({request: val}).then(res => {
                 setResultList(res)
             });
         }
@@ -34,7 +43,7 @@ const SearchResult = ({searchRequest=''}) => {
     return (
         <div>
             <div className="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Looking for..." value={request} onChange={e=>setRequest(e.target.value)}/>
+              <input type="text" className="form-control" placeholder="Looking for..." value={request} onChange={e=>setRequest(e.target.value)}/>
               <button className="btn btn-primary" type="button" onClick={e=>{startSearch()}}>Search</button>
             </div>
             SearchResult
