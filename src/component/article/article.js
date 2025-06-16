@@ -5,6 +5,7 @@ import Progress from '../progress';
 import FullWidthCenter from '../fullWidthCenter';
 import ListGroup from '../listGroup';
 import Button from '../button';
+import Modal from '../modal';
 import {deleteArticle} from '../../service/articleService';
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +14,7 @@ const Article = () => {
 
     const [article, setArticle] = useState(null);
     const [isLoading, setLoading] = useState(true);
+    const [isModalDelete, setShowModalDelete] = useState(false);
     const { idArticle } = useParams();
     const navigate = useNavigate();
 
@@ -55,14 +57,20 @@ const Article = () => {
         }
     }
 
-    const handleOnDelete = () => {
-        deleteArticle(idArticle).then(() => navigate("/home"));
+    const getModalDelete = () => {
+        return isModalDelete ?  <Modal isOpen={isModalDelete} setOpen={setShowModalDelete}
+                                               headerText="Warning!"
+                                               modalText="This Article will be deleted."
+                                               optBtnText={"Delete"}
+                                               optOnClick={()=>{deleteArticle(idArticle).then(() => navigate("/home"));}}
+                                               optBtnTextStyle={"btn-danger"}/> : '';
     }
 
     return (
         <div>
             {getArticleComp()}
-            <Button text={"Delete"} btnStyle={"btn-danger"} onClick={()=> handleOnDelete()}/>
+            {getModalDelete()}
+            <Button text={"Delete"} btnStyle={"btn-danger"} onClick={()=> setShowModalDelete(true)}/>
         </div>
     )
 }
