@@ -5,6 +5,7 @@ import DesertList from '../component/recipe/desertList';
 import MainCourseList from '../component/recipe/mainCourseList';
 import CreateArticle from '../component/createArticle';
 import Encyclopedia from '../component/encyclopedia';
+import SearchResult from '../component/searchResult';
 import Article from '../component/article';
 import ErrorPage from '../component/errorPage';
 
@@ -44,10 +45,14 @@ const router = createBrowserRouter([
            },
        ],
     },
-
     {
         path: "/encyclopedia",
         element: <AppBody><Encyclopedia/></AppBody>,
+        errorElement: <ErrorPage/>,
+    },
+    {
+        path: "/search",
+        element: <AppBody><SearchResult/></AppBody>,
         errorElement: <ErrorPage/>,
     },
 ]);

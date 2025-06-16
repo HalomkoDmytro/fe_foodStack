@@ -14,6 +14,10 @@ export default class ArticleAPI {
         return basicRequest('article/theme', 'POST', data);
     }
 
+    async searchArticleListApi(data) {
+        return basicRequest('article/search', 'POST', data);
+    }
+
     updateArticle = async (body) => {
         basicRequest(`article`, 'POST', body);
     }

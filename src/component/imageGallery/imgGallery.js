@@ -4,7 +4,7 @@ import FullWidthCenter from '../fullWidthCenter';
 import {getArticleList} from '../../service/articleService';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { setArticle } from '../../utils/articleSlice';
+// import { setArticle } from '../../utils/articleSlice';
 import Progress from '../progress';
 
 
@@ -51,7 +51,7 @@ const ImageGallery = ({theme='DESSERT', getArticleMethod}) => {
                 const imgSrc = img.srcImg ? img.srcImg : '/img/dish_template.png';
 
                 return (<Link to={`/article/${img.id}`} key={i}>
-                   <div className="gallery-item" key={i} onClick={() => dispatch(setArticle(img)) }>
+                   <div className="gallery-item" key={i} onClick={() => {} }>
                      <img src={imgSrc} alt="img should be here" />
                      <div className="description">
                          <h1>{img.title}</h1>
