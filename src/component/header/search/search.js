@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { setText } from '../../../utils/slice/textSlice';
+import { setSearchRequest } from '../../../utils/slice/searchRequestSlice';
 
 const Search = () => {
 
@@ -11,7 +11,7 @@ const Search = () => {
 
     const handleSearch = () => {
         if(search && search.length > 2) {
-            dispatch(setText(search));
+            dispatch(setSearchRequest(search));
             navigate("/search");
             setSearch('');
         }

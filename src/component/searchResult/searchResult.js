@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const SearchResult = ({searchRequest=''}) => {
 
-    const text = useSelector(state => state.text.value);
+    const headerRequest = useSelector(state => state.text.value);
     const [request, setRequest] = useState(searchRequest);
     const [resultList, setResultList] = useState([]);
 
@@ -14,9 +14,9 @@ const SearchResult = ({searchRequest=''}) => {
     }, []);
 
     useEffect(() => {
-        setRequest(text);
-        startSearch(text);
-    }, [text]);
+        setRequest(headerRequest);
+        startSearch(headerRequest);
+    }, [headerRequest]);
 
     const startSearch = (param) => {
 
@@ -36,7 +36,10 @@ const SearchResult = ({searchRequest=''}) => {
             });
             return arr;
         } else {
-            return <p>Nothing to show...</p>
+            return <div>
+                <h2>Nothing to show...</h2>
+                <img style={{maxWidth: '400px'}} src={"/img/empty_plate.png"} alt="img should be here" />
+            </div>
         }
     }
 
@@ -46,7 +49,7 @@ const SearchResult = ({searchRequest=''}) => {
               <input type="text" className="form-control" placeholder="Looking for..." value={request} onChange={e=>setRequest(e.target.value)}/>
               <button className="btn btn-primary" type="button" onClick={e=>{startSearch()}}>Search</button>
             </div>
-            SearchResult
+            <p></p>
             <div>{getList()}</div>
         </div>
     )
