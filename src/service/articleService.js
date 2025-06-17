@@ -14,7 +14,7 @@ const getArticleList = async ({theme = 'DESSERT', page = 0, size = 8, sortBy = '
     return new ArticleAPI().getArticleByTheme({theme, page, size, sortBy, sortDir});
 }
 
-const searchArticleList = async ({request, page = 0, size = 8, sortBy = 'id', sortDir = "DESC"}) => {
+const searchArticleList = async ({request, page = 0, size = 4, sortBy = 'id', sortDir = "DESC"}) => {
     return new ArticleAPI().searchArticleListApi({request, page, size, sortBy, sortDir});
 }
 

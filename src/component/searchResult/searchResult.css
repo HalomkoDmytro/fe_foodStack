@@ -1,0 +1,10 @@
+.nav-search {
+    text-decoration: none;     /* убираем подчёркивание */
+    padding: 8px 12px;
+    border-radius: 4px;
+}
+
+.nav-search:hover {
+    border-radius: 255px 25px 225px 25px / 25px 225px 25px 255px;
+    background-color: rgba(202, 202, 202, 0.5); /* прозрачный бежевый */
+}

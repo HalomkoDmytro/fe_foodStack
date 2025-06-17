@@ -4,7 +4,6 @@ import FullWidthCenter from '../fullWidthCenter';
 import {getArticleList} from '../../service/articleService';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-// import { setArticle } from '../../utils/articleSlice';
 import Progress from '../progress';
 
 
