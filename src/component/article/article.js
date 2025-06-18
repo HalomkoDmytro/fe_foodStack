@@ -45,15 +45,15 @@ const Article = () => {
         if (article) {
             const title = article.title ? <h1>{article.title}</h1> : '';
             const paragraphList = !article.paragraph ? '' : article.paragraph.map(par =>
-                <div key={par.id}>
+                <FullWidthCenter key={par.id}>
                     {getParagraph(par)}
-                </div>
+                </FullWidthCenter>
             ) ;
 
-            return <FullWidthCenter key={article.id}>
-                    {title}
+            return <div key={article.id}>
+                    <FullWidthCenter>{title}</FullWidthCenter>
                     {paragraphList}
-                </FullWidthCenter>
+                </div>
         }
     }
 
