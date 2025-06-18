@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-const ChoseImg = ({id, label, onChangeInput, source=null}) => {
+const ChoseImg = ({width='100%', height='200', id, label, onChangeInput, source=null}) => {
 
     const [imageSrc, setImageSrc] = useState(source);
 
@@ -22,7 +22,7 @@ const ChoseImg = ({id, label, onChangeInput, source=null}) => {
             return <img src={imageSrc} alt="Preview" style={{ height: '300px' }}/>
         }
         return <svg xmlns="http://www.w3.org/2000/svg" className="d-block user-select-none"
-                   width="100%" height="200" aria-label="Placeholder: Image cap"
+                   width={`${width}`} height={`${height}`} aria-label="Placeholder: Image cap"
                    focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180"
                    style={{"fontSize": "1.125rem", "textAnchor":"middle"}}>
                    <rect width="100%" height="100%" fill="#868e96"></rect>

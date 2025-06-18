@@ -24,22 +24,34 @@ const deleteArticle = async (id) => {
 
 const updateOrCreateArticle =  async rawData => {
 
-    updateLinkToUploadedFile(rawData).then(data => {
-            const body = {
-                id: data.id,
-                theme: data.theme,
-                title: data.h1Title,
-                description: data.description,
-                titlePicture: data.titlePicture,
-                visible: data.visible,
-                paragraph: convertParagraph(data)
-            }
+    uploadCoverImg(rawData)
+        .then(rd => updateLinkToUploadedFile(rd).then(data => {
+                const body = {
+                    id: data.id,
+                    srcImg: data.srcImg,
+                    theme: data.theme,
+                    title: data.h1Title,
+                    description: data.description,
+                    titlePicture: data.titlePicture,
+                    visible: data.visible,
+                    paragraph: convertParagraph(data)
+                }
 
-            return new ArticleAPI().updateArticle(body)
-                    .then((res) => console.log("updateOrCreateArticle res: ", res))
-                    .catch((err) => console.log("updateOrCreateArticle err", err));
-        });
+                return new ArticleAPI().updateArticle(body)
+                        .then((res) => console.log("updateOrCreateArticle res: ", res))
+                        .catch((err) => console.log("updateOrCreateArticle err", err));
+            }));
 
+}
+
+const uploadCoverImg = async data => {
+    if(data && data.srcImg) {
+        const fileApi = new FileAPI();
+        const imgUrl = await fileApi.uploadFile(data.srcImg);
+        data.srcImg = imgUrl;
+    }
+
+    return data;
 }
 
 const updateLinkToUploadedFile = async data => {

@@ -4,6 +4,7 @@ import Button from '../button';
 import TextArea from '../textArea';
 import EditArticleParagraph from './editArticleParagraph';
 import { useSelector, useDispatch } from 'react-redux';
+import ChoseImg from '../choseImg'
 import {updateOrCreateArticle} from '../../service/articleService';
 import { useNavigate } from "react-router-dom";
 
@@ -20,6 +21,7 @@ const CreateArticle = () => {
     const [paragraphList, addParagraph] = useState([]);
     const [lastId, updateId] = useState(0);
     const [h1Title, updateH1Title] = useState('');
+    const [coverImg, setCoveImg] = useState({});
     const [description, updateDescription] = useState('');
     const [theme, setTheme] = useState('');
 
@@ -50,6 +52,10 @@ const CreateArticle = () => {
         } )
 
         addParagraph(prev => [...prev, newParagraph]);
+    }
+
+    const updateCoverImg = (src, id, file) => {
+        setCoveImg({src, file});
     }
 
     const updateData = (data, id, file) => {
@@ -94,6 +100,7 @@ const CreateArticle = () => {
     const onSaveClick = () => {
         updateOrCreateArticle({
             id: null,
+            srcImg: coverImg.file,
             h1Title,
             theme,
             description,
@@ -105,7 +112,10 @@ const CreateArticle = () => {
 
     return (
         <div className="container">
-
+            <div>
+                <p>Choose img to display in Recipe Gallery:</p>
+                <ChoseImg width={'300px'} height={'400px'}  onChangeInput={(url, id, img) => updateCoverImg(url, id, img)} source={coverImg.src}/>
+            </div>
             <TextArea labelText="Title:" initValue={h1Title} onChangeInput={updateH1Title}/>
             <TextArea labelText="Description:" initValue={description} onChangeInput={updateDescription}/>
 
