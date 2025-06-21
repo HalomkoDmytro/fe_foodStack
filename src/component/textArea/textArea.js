@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const TextArea = ({id, labelText='', textAreaId, onChangeInput, initValue=''}) => {
 
     const [value, setValue] = useState(initValue);
+
+    useEffect(() => {
+        setValue(initValue)
+    }, [initValue]);
 
     const onChangeTextArea = (e) => {
         setValue(e.target.value)

@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 
-import TextArea from '../../textArea';
-import ListGroupEdit from '../../listGroupEdit';
-import Select from '../../select'
-import ChoseImg from '../../choseImg'
-import Button from '../../button'
+import TextArea from '../textArea';
+import ListGroupEdit from '../listGroupEdit';
+import Select from '../select'
+import ChoseImg from '../choseImg'
+import Button from '../button'
 
 const PICTURE = 'PICTURE';
 const TEXT = 'TEXT';
@@ -14,6 +14,8 @@ const OPTIONS = [TEXT, PICTURE, LIST_GROUPS];
 const EditArticleParagraph = ({id, onDelete, type='', onAddBefore, data, updateData, updateElementType}) => {
 
     const [paragraphType, setType] = useState(type);
+
+    useEffect(() => setType(type), [type]);
 
     const updateType = (newType, id) => {
         setType(newType);
@@ -35,7 +37,7 @@ const EditArticleParagraph = ({id, onDelete, type='', onAddBefore, data, updateD
 
     return(
         <div key={id}>
-            <Select title="Paragraph type:" selectOptions={OPTIONS} onChange={(type) => updateType(type, id)}/>
+            <Select title="Paragraph type:" selectOptions={OPTIONS} onChange={(type) => updateType(type, id)} value={paragraphType}/>
 
             {getCreateArticleByType()}
 

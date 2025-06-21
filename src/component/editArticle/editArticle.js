@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Select from '../select';
 import Button from '../button';
 import TextArea from '../textArea';
 import EditArticleParagraph from '../editArticleParagraph';
-import { useSelector, useDispatch } from 'react-redux';
-import ChoseImg from '../choseImg'
+import ChoseImg from '../choseImg';
+import { useParams } from 'react-router-dom';
 import {updateOrCreateArticle} from '../../service/articleService';
+import {deleteParagraph} from '../../service/paragraphService';
+import {getArticle} from '../../service/articleService';
 import { useNavigate } from "react-router-dom";
 
 const PARAGRAPH = {
@@ -15,15 +17,32 @@ const PARAGRAPH = {
     type: 'TEXT'
 }
 
-const CreateArticle = () => {
+const EditArticle = () => {
 
     const navigate = useNavigate();
+    const { idArticle } = useParams();
     const [paragraphList, addParagraph] = useState([]);
     const [lastId, updateId] = useState(0);
     const [h1Title, updateH1Title] = useState('');
     const [coverImg, setCoveImg] = useState({});
     const [description, updateDescription] = useState('');
     const [theme, setTheme] = useState('');
+
+    useEffect(() => {
+        getArticle(idArticle).then(res =>{
+            if(res) {
+                updateH1Title(res.title);
+                updateDescription(res.description);
+                setTheme(res.theme);
+                setCoveImg({src: res.imgSrc});
+                if(res.paragraph) {
+                    addParagraph(res.paragraph.map(par => {
+                            return {id: par.id, order: par.orderPosition, type: par.type, data: par.data};
+                        }))
+                }
+            }
+        })
+    }, []);
 
     const addParagraphClick = () => {
         const newParagraph = {...PARAGRAPH};
@@ -35,7 +54,9 @@ const CreateArticle = () => {
     }
 
     const deleteParagraphClick = (id) => {
-        addParagraph(prev => prev.filter((prev) => prev.id !== id));
+        deleteParagraph(id).then(() =>
+            addParagraph(prev => prev.filter((prev) => prev.id !== id))
+        )
     }
 
     const onAddBefore = (beforeOrderId) => {
@@ -116,8 +137,8 @@ const CreateArticle = () => {
                 <p>Choose img to display in Recipe Gallery:</p>
                 <ChoseImg width={'300px'} height={'400px'}  onChangeInput={(url, id, img) => updateCoverImg(url, id, img)} source={coverImg.src}/>
             </div>
-            <TextArea labelText="Title:" initValue={h1Title} onChangeInput={updateH1Title}/>
-            <TextArea labelText="Description:" initValue={description} onChangeInput={updateDescription}/>
+            <TextArea labelText="Title:" initValue={h1Title}  onChangeInput={updateH1Title}/>
+            <TextArea labelText="Description:" initValue={description}  onChangeInput={updateDescription}/>
 
             <Select title="Select category" selectOptions={["DESSERT", "MAIN_COURSE", "SOUS"]} onChange={val => setTheme(val)}/>
 
@@ -125,11 +146,11 @@ const CreateArticle = () => {
             <p></p>
             <div><Button text="+ add new paragraph" btnStyle="btn-info" onClick={addParagraphClick}/></div>
             <p></p>
-            <div><Button text="Post in WORLD" btnStyle="btn-outline-dark" onClick={onSaveClick}/></div>
+            <div><Button text="Close and SAVE" btnStyle="btn-outline-dark" onClick={onSaveClick}/></div>
 
         </div>
     )
 
 }
 
-export default CreateArticle;
+export default EditArticle;

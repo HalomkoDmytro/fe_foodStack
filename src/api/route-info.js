@@ -4,6 +4,7 @@ import AppBody from '../component/appBody';
 import DesertList from '../component/recipe/desertList';
 import MainCourseList from '../component/recipe/mainCourseList';
 import CreateArticle from '../component/createArticle';
+import EditArticle from '../component/editArticle';
 import Encyclopedia from '../component/encyclopedia';
 import SearchResult from '../component/searchResult';
 import Article from '../component/article';
@@ -29,6 +30,11 @@ const router = createBrowserRouter([
     {
         path: "/create-article",
         element: <AppBody><CreateArticle/></AppBody>,
+        errorElement: <ErrorPage/>,
+    },
+    {
+        path: "/edit-article/:idArticle",
+        element: <AppBody><EditArticle/></AppBody>,
         errorElement: <ErrorPage/>,
     },
     {
