@@ -9,6 +9,7 @@ import {updateOrCreateArticle} from '../../service/articleService';
 import {deleteParagraph} from '../../service/paragraphService';
 import {getArticle} from '../../service/articleService';
 import { useNavigate } from "react-router-dom";
+import Progress from '../progress';
 
 const PARAGRAPH = {
     id: 0,
@@ -27,6 +28,7 @@ const EditArticle = () => {
     const [coverImg, setCoveImg] = useState({});
     const [description, updateDescription] = useState('');
     const [theme, setTheme] = useState('');
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         getArticle(idArticle).then(res =>{
@@ -40,6 +42,7 @@ const EditArticle = () => {
                             return {id: par.id, order: par.orderPosition, type: par.type, data: par.data};
                         }))
                 }
+                setLoading(false);
             }
         })
     }, []);
@@ -120,15 +123,18 @@ const EditArticle = () => {
 
     const onSaveClick = () => {
         updateOrCreateArticle({
-            id: null,
+            id: idArticle,
             srcImg: coverImg.file,
             h1Title,
             theme,
             description,
             titleImg: null,
             paragraphList
-        });
-        navigate("/home");
+        }).then((res) => navigate("/home"));
+    }
+
+    if(isLoading) {
+        return <Progress/>
     }
 
     return (

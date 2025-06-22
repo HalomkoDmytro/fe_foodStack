@@ -70,6 +70,7 @@ const Article = () => {
         <div>
             {getArticleComp()}
             {getModalDelete()}
+            <Button text={"Edit"} btnStyle={"btn-warning"} onClick={()=> navigate(`/edit-article/${idArticle}`)}/>
             <Button text={"Delete"} btnStyle={"btn-danger"} onClick={()=> setShowModalDelete(true)}/>
         </div>
     )
