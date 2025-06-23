@@ -8,6 +8,7 @@ import EditArticle from '../component/editArticle';
 import Encyclopedia from '../component/encyclopedia';
 import SearchResult from '../component/searchResult';
 import Article from '../component/article';
+import Login from '../component/login';
 import ErrorPage from '../component/errorPage';
 
 const router = createBrowserRouter([
@@ -59,6 +60,11 @@ const router = createBrowserRouter([
     {
         path: "/search",
         element: <AppBody><SearchResult/></AppBody>,
+        errorElement: <ErrorPage/>,
+    },
+    {
+        path: "/login",
+        element: <AppBody><Login/></AppBody>,
         errorElement: <ErrorPage/>,
     },
 ]);
