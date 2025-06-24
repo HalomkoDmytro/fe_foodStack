@@ -2,23 +2,29 @@ import React, {useState} from 'react';
 import FullWidthCenter from '../fullWidthCenter';
 import Button from '../button';
 import {initLogin} from '../../service/loginService';
+import { useDispatch } from 'react-redux';
+import { setRoles } from '../../utils/slice/rolesSlice';
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
+    const dispatch = useDispatch();
     const [username, setName] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit  = () => {
-        initLogin(username, password).then(res => {
-            if(res) {
-                navigate("/home")
-            } else {
-                setError(true);
-            }
-        })
+        if(username && password) {
+            initLogin(username, password).then(roles => {
+                if(roles) {
+                    dispatch(setRoles(roles));
+                    navigate("/home");
+                } else {
+                    setError(true);
+                }
+            })
+        }
     }
 
     return (
@@ -31,11 +37,11 @@ const Login = () => {
                 </div>
                 <div className="form-floating">
                     <input type="password" className="form-control"  placeholder="Password" value={password}
-                        autocomplete="off" onChange={(e) => setPassword(e.target.value)}/>
+                        autoComplete="off" onChange={(e) => setPassword(e.target.value)}/>
                     <label for="floatingPassword">Password</label>
                 </div>
                 <Button text={"Login"}  onClick={handleSubmit}/>
-                {error && <div>error happend</div>}
+                {error && <div className={"alert alert-dismissible alert-danger"}>Login failed!</div>}
             </div>
         </FullWidthCenter>
     )

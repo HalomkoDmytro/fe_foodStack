@@ -7,11 +7,11 @@ export default class ArticleAPI {
     }
 
     async getAllArticle(data) {
-        return basicRequest('secure/article/light', 'POST', data);
+        return basicRequest('article/light', 'POST', data);
     }
 
     async getArticleByTheme(data) {
-        return basicRequest('secure/article/theme', 'POST', data);
+        return basicRequest('article/theme', 'POST', data);
     }
 
     async searchArticleListApi(data) {

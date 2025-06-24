@@ -1,4 +1,5 @@
-import AuthenticateServiceAPI from '../api/authenticateServiceAPI'
+import AuthenticateServiceAPI from '../api/authenticateServiceAPI';
+
 
 const initLogin = async (username, password) => {
     return new AuthenticateServiceAPI().getAllArticle({username, password})
@@ -8,7 +9,7 @@ const initLogin = async (username, password) => {
                 localStorage.setItem('auth', token);
                 localStorage.setItem('username', username);
                 localStorage.setItem('roles', roles);
-                return true;
+                return roles;
             }
             return false;
         });
@@ -18,5 +19,6 @@ const logOut = () => {
     localStorage.clear();
     sessionStorage.clear();
 }
+
 
 export {logOut, initLogin};
