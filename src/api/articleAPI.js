@@ -7,23 +7,23 @@ export default class ArticleAPI {
     }
 
     async getAllArticle(data) {
-        return basicRequest('article/light', 'POST', data);
+        return basicRequest('secure/article/light', 'POST', data);
     }
 
     async getArticleByTheme(data) {
-        return basicRequest('article/theme', 'POST', data);
+        return basicRequest('secure/article/theme', 'POST', data);
     }
 
     async searchArticleListApi(data) {
-        return basicRequest('article/search', 'POST', data);
+        return basicRequest('secure/article/search', 'POST', data);
     }
 
     updateArticle = async (body) => {
-        basicRequest(`article`, 'POST', body);
+        basicRequest(`secure/article`, 'POST', body);
     }
 
     deleteArticle = async (id) => {
-        basicRequest(`article/${id}`, 'DELETE', null);
+        basicRequest(`secure/article/${id}`, 'DELETE', null);
     }
 
 }
