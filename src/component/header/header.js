@@ -1,5 +1,5 @@
 import React, {useEffect,useState} from 'react'
-import {logOut} from '../../service/loginService';
+import {logOut, isLoginInStorage} from '../../service/loginService';
 import ListItemLink from './list-item-link';
 import Search from './search';
 import Dropdown from './dropdown';
@@ -20,7 +20,7 @@ const Header = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-       if(userRoles.value?.length > 0) {
+       if(isLoginInStorage() || userRoles.value?.length > 0) {
             setLogIn(true);
             setEditor(userRoles.value.map(item => item.trim()).includes("ROLE_ADMIN"));
        } else {

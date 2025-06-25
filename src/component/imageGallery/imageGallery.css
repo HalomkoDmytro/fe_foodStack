@@ -15,6 +15,8 @@
     display: block;
     border-radius: 1px;
     transition: 0.3s ease;
+    max-width: 400px;
+    max-height: 450px;
 }
 
 .gallery-item:hover img {

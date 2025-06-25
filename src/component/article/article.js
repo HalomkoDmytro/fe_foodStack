@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import {getArticle} from '../../service/articleService';
+import {hasRole} from '../../service/loginService';
 import Progress from '../progress';
 import FullWidthCenter from '../fullWidthCenter';
 import ListGroup from '../listGroup';
@@ -8,7 +9,6 @@ import Button from '../button';
 import Modal from '../modal';
 import {deleteArticle} from '../../service/articleService';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 
 const Article = () => {
@@ -19,22 +19,18 @@ const Article = () => {
     const [isModalDelete, setShowModalDelete] = useState(false);
     const { idArticle } = useParams();
     const navigate = useNavigate();
-    const userRoles = useSelector(state => state.roles);
 
     useEffect(() => {
         getArticle(idArticle).then(res => {
             setArticle(res);
             setLoading(false);
         });
-    }, []);
-
-    useEffect(() => {
-       if(userRoles.value?.length > 0) {
-            setEditor(userRoles.value.map(item => item.trim()).includes("ROLE_ADMIN"));
-       } else {
+        if(hasRole('ROLE_ADMIN')) {
+            setEditor(true)
+        } else {
             setEditor(false);
-       }
-    }, [userRoles]);
+        }
+    }, []);
 
     const getParagraph = (par) => {
         switch (par.type) {

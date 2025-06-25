@@ -36,7 +36,7 @@ const EditArticle = () => {
                 updateH1Title(res.title);
                 updateDescription(res.description);
                 setTheme(res.theme);
-                setCoveImg({src: res.imgSrc});
+                setCoveImg({src: res.srcImg});
                 if(res.paragraph) {
                     addParagraph(res.paragraph.map(par => {
                             return {id: par.id, order: par.orderPosition, type: par.type, data: par.data};
@@ -141,7 +141,7 @@ const EditArticle = () => {
         <div className="container">
             <div>
                 <p>Choose img to display in Recipe Gallery:</p>
-                <ChoseImg width={'300px'} height={'400px'}  onChangeInput={(url, id, img) => updateCoverImg(url, id, img)} source={coverImg.src}/>
+                <ChoseImg source={coverImg.src} onChangeInput={(url, id, img) => updateCoverImg(url, id, img)}/>
             </div>
             <TextArea labelText="Title:" initValue={h1Title}  onChangeInput={updateH1Title}/>
             <TextArea labelText="Description:" initValue={description}  onChangeInput={updateDescription}/>

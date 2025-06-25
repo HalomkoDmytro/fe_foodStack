@@ -20,5 +20,14 @@ const logOut = () => {
     sessionStorage.clear();
 }
 
+const isLoginInStorage = () => {
+    return localStorage.getItem('auth') &&  localStorage.getItem('roles');
+}
 
-export {logOut, initLogin};
+const hasRole = (role) => {
+
+    return localStorage.getItem('roles')?.split(",").map(item => item.trim()).includes(role)
+}
+
+
+export {logOut, initLogin, isLoginInStorage, hasRole};
