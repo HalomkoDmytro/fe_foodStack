@@ -30,7 +30,7 @@ const SearchResult = ({searchRequest=''}) => {
 
     const startSearch = (param, pageNumber=0) => {
         setLoading(true);
-        if((param && param.length>0) || (request && request.length > 0)) {
+        if(param?.length > 0 || request?.length > 0) {
             const val = param && param.length>0 ? param : request;
             searchArticleList({request: val, page: pageNumber}).then(res => {
                 setResultList(res);
@@ -45,7 +45,7 @@ const SearchResult = ({searchRequest=''}) => {
         if(isLoading) {
             return <Progress/>
         }
-        if(resultList && resultList.content && resultList.content.length > 0) {
+        if(resultList?.content?.length > 0) {
             let arr = [];
             resultList.content.forEach((res, i) => {
                 const imgSrc = res.srcImg ? res.srcImg : '/img/dish_template.png';
@@ -67,7 +67,7 @@ const SearchResult = ({searchRequest=''}) => {
     }
 
     const getPagination = () => {
-        if(pagInfo && pagInfo.totalPages > 1) {
+        if(pagInfo?.totalPages > 1) {
             return <Pagination first={pagInfo.first} last={pagInfo.last}  totalPages={pagInfo.totalPages}
             pageNumber={pagInfo.pageNumber} updatePage={(e) => startSearch(request, e)}/>
         }

@@ -7,16 +7,19 @@ import ListGroup from '../listGroup';
 import Button from '../button';
 import Modal from '../modal';
 import {deleteArticle} from '../../service/articleService';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Article = () => {
 
     const [article, setArticle] = useState(null);
     const [isLoading, setLoading] = useState(true);
+    const [isEditor, setEditor] = useState(false);
     const [isModalDelete, setShowModalDelete] = useState(false);
     const { idArticle } = useParams();
     const navigate = useNavigate();
+    const userRoles = useSelector(state => state.roles);
 
     useEffect(() => {
         getArticle(idArticle).then(res => {
@@ -24,6 +27,14 @@ const Article = () => {
             setLoading(false);
         });
     }, []);
+
+    useEffect(() => {
+       if(userRoles.value?.length > 0) {
+            setEditor(userRoles.value.map(item => item.trim()).includes("ROLE_ADMIN"));
+       } else {
+            setEditor(false);
+       }
+    }, [userRoles]);
 
     const getParagraph = (par) => {
         switch (par.type) {
@@ -70,8 +81,8 @@ const Article = () => {
         <div>
             {getArticleComp()}
             {getModalDelete()}
-            <Button text={"Edit"} btnStyle={"btn-warning"} onClick={()=> navigate(`/edit-article/${idArticle}`)}/>
-            <Button text={"Delete"} btnStyle={"btn-danger"} onClick={()=> setShowModalDelete(true)}/>
+            {isEditor && <Button text={"Edit"} btnStyle={"btn-warning"} onClick={()=> navigate(`/edit-article/${idArticle}`)}/>}
+            {isEditor && <Button text={"Delete"} btnStyle={"btn-danger"} onClick={()=> setShowModalDelete(true)}/>}
         </div>
     )
 }

@@ -15,7 +15,7 @@ export default class ArticleAPI {
     }
 
     async searchArticleListApi(data) {
-        return basicRequest('secure/article/search', 'POST', data);
+        return basicRequest('article/search', 'POST', data);
     }
 
     updateArticle = async (body) => {

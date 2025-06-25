@@ -5,7 +5,7 @@ import Search from './search';
 import Dropdown from './dropdown';
 import { Link } from 'react-router-dom';
 import { useSelector,useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { setRoles } from '../../utils/slice/rolesSlice';
 
 import './header.css'
@@ -23,6 +23,8 @@ const Header = () => {
        if(userRoles.value?.length > 0) {
             setLogIn(true);
             setEditor(userRoles.value.map(item => item.trim()).includes("ROLE_ADMIN"));
+       } else {
+            setLogIn(false);
        }
     }, [userRoles]);
 
@@ -52,7 +54,7 @@ const Header = () => {
                                 </ListItemLink>
                                 <Dropdown/>
                                 <ListItemLink href="/encyclopedia" text="Encyclopedia"/>
-                                {isEditor && <ListItemLink href="/create-article" text="Add Post"/>}
+                                {isLogIn && isEditor && <ListItemLink href="/create-article" text="Add Post"/>}
                                 {isLogIn && <ListItemLink text="Log Out" handleClick={()=>setLogOut()}/>}
                             </ul>
                             <Search />
