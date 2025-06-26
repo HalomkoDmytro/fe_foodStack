@@ -23,9 +23,9 @@ const deleteArticle = async (id) => {
 }
 
 const createArticle =  async (rawData) => {
-
     uploadCoverImg(rawData)
-        .then(rd => updateLinkToUploadedFile(rd).then(data => {
+        .then(rd => createLinkToUploadedFile(rd)
+        .then(data => {
                 const body = {
                     id: data.id,
                     srcImg: data.srcImg,
@@ -40,15 +40,15 @@ const createArticle =  async (rawData) => {
                 return new ArticleAPI().updateArticle(body)
                         .then((res) => console.log("createArticle res: ", res))
                         .catch((err) => console.log("createArticle err", err));
-            }));
-
+            })
+        );
 }
 
 const updateArticle =  async (rawData) => {
 
     updateCoverImg(rawData)
         .then(rd => updateLinkToUploadedFile(rd)
-            .then(data => {
+        .then(data => {
                 const body = {
                     id: data.id,
                     srcImg: data.srcImg,
@@ -66,7 +66,6 @@ const updateArticle =  async (rawData) => {
 }
 
 const updateCoverImg = async data => {
-    debugger;
     if(data?.srcImgFile && data.isUpdated) {
         const fileApi = new FileAPI();
         const imgUrl = await fileApi.uploadFile(data.srcImgFile);
@@ -92,9 +91,34 @@ const updateLinkToUploadedFile = async data => {
                 .map(async par =>  {
                     if(par.type !== 'PICTURE') return par;
 
+                    if(par.isChanged) {
+                        const imgUrl = await fileApi.uploadFile(par.file);
+                        if(imgUrl) {
+                            par.data = imgUrl;
+                        } else {
+                            console.log("problem with upload img");
+                        }
+                        return par;
+                    } else {
+                        return par;
+                    }
+
+                }
+            );
+
+        data.paragraphList = await Promise.all(data.paragraphList);
+        return data;
+}
+
+const createLinkToUploadedFile = async data => {
+        const fileApi = new FileAPI();
+        data.paragraphList =  data.paragraphList
+                .map(async par =>  {
+                    if(par.type !== 'PICTURE') return par;
+
                     const imgUrl = await fileApi.uploadFile(par.file);
                     if(imgUrl) {
-                        par.data = imgUrl;
+                        par.data = data.imgUrl;
                     } else {
                         console.log("problem with upload img");
                     }

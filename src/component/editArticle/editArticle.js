@@ -87,6 +87,9 @@ const EditArticle = () => {
         paragraphList.forEach((prev) => {
                 if(prev.id === id) {
                     prev.data = data;
+                    if(prev.type === 'PICTURE') {
+                        prev.isChanged = true;
+                    }
                     if(file) {
                         prev.file = file
                     }
@@ -114,7 +117,7 @@ const EditArticle = () => {
                         type={el.type}
                         data={el.data}
                         onDelete={() => deleteParagraphClick(el.id)}
-                        onAddBefore={()=>onAddBefore(el.order)}
+                        onAddBefore={() => onAddBefore(el.order)}
                         updateData={updateData}
                         updateElementType={updateElementType}
                     />
