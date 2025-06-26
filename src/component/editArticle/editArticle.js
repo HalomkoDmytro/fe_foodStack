@@ -15,7 +15,8 @@ const PARAGRAPH = {
     id: 0,
     order: 0,
     data: '',
-    type: 'TEXT'
+    type: 'TEXT',
+    isUpdated: false
 }
 
 const EditArticle = () => {
@@ -25,7 +26,6 @@ const EditArticle = () => {
     const [paragraphList, addParagraph] = useState([]);
     const [lastId, updateId] = useState(0);
     const [h1Title, updateH1Title] = useState('');
-    const [originCoverImg, setOriginCoveImg] = useState({});
     const [coverImg, setCoveImg] = useState({});
     const [description, updateDescription] = useState('');
     const [theme, setTheme] = useState('');
@@ -37,8 +37,7 @@ const EditArticle = () => {
                 updateH1Title(res.title);
                 updateDescription(res.description);
                 setTheme(res.theme);
-                setCoveImg({src: res.srcImg});
-                setOriginCoveImg({src: res.srcImg});
+                setCoveImg({src: res.srcImg, isUpdated: false});
                 if(res.paragraph) {
                     addParagraph(res.paragraph.map(par => {
                             return {id: par.id, order: par.orderPosition, type: par.type, data: par.data};
@@ -81,7 +80,7 @@ const EditArticle = () => {
     }
 
     const updateCoverImg = (src, id, file) => {
-        setCoveImg({src, file});
+        setCoveImg({src, file, isUpdated: true});
     }
 
     const updateData = (data, id, file) => {
@@ -126,12 +125,12 @@ const EditArticle = () => {
     const onSaveClick = () => {
         updateArticle({
             id: idArticle,
-            originSrcImg: originCoverImg,
-            srcImg: coverImg.file,
+            isUpdated: coverImg.isUpdated,
+            srcImg: coverImg.src,
+            srcImgFile: coverImg.file,
             h1Title,
             theme,
             description,
-            titleImg: null,
             paragraphList
         }).then((res) => navigate("/home"));
     }

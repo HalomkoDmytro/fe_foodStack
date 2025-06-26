@@ -46,8 +46,9 @@ const createArticle =  async (rawData) => {
 
 const updateArticle =  async (rawData) => {
 
-    uploadCoverImg(rawData)
-        .then(rd => updateLinkToUploadedFile(rd).then(data => {
+    updateCoverImg(rawData)
+        .then(rd => updateLinkToUploadedFile(rd)
+            .then(data => {
                 const body = {
                     id: data.id,
                     srcImg: data.srcImg,
@@ -59,15 +60,24 @@ const updateArticle =  async (rawData) => {
                     paragraph: convertParagraph(data)
                 }
 
-                return new ArticleAPI().updateArticle(body)
-                        .then((res) => console.log("createArticle res: ", res))
-                        .catch((err) => console.log("createArticle err", err));
-            }));
+                return new ArticleAPI().updateArticle(body);
+            })
+        );
+}
 
+const updateCoverImg = async data => {
+    debugger;
+    if(data?.srcImgFile && data.isUpdated) {
+        const fileApi = new FileAPI();
+        const imgUrl = await fileApi.uploadFile(data.srcImgFile);
+        data.srcImg = imgUrl;
+    }
+
+    return data;
 }
 
 const uploadCoverImg = async data => {
-    if(data && data.srcImg) {
+    if(data?.srcImg) {
         const fileApi = new FileAPI();
         const imgUrl = await fileApi.uploadFile(data.srcImg);
         data.srcImg = imgUrl;

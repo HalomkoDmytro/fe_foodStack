@@ -3,7 +3,7 @@ import Select from '../select';
 import Button from '../button';
 import TextArea from '../textArea';
 import EditArticleParagraph from '../editArticleParagraph';
-import ChoseImg from '../choseImg'
+import ChoseImg from '../choseImg';
 import {createArticle} from '../../service/articleService';
 import { useNavigate } from "react-router-dom";
 
@@ -103,7 +103,6 @@ const CreateArticle = () => {
             h1Title,
             theme,
             description,
-            titleImg: null,
             paragraphList
         });
         navigate("/home");
