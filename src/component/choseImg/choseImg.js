@@ -4,18 +4,18 @@ const ChoseImg = ({width='100%', height='200', id, label, onChangeInput, source=
 
     const [imageSrc, setImageSrc] = useState(source);
 
-  const handleChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file && file.type.startsWith('image/')) {
-      const url = URL.createObjectURL(file);
-      if(onChangeInput) {
-          setImageSrc(url)
-          let img =  new FormData();
-          img.append("image", e.target.files[0]);
-          onChangeInput(url, id, img);
-      }
-    }
-  };
+    const handleChange = (e) => {
+        const file = e.target.files?.[0];
+        if (file && file.type.startsWith('image/')) {
+          const url = URL.createObjectURL(file);
+          if(onChangeInput) {
+              setImageSrc(url)
+              let img =  new FormData();
+              img.append("image", e.target.files[0]);
+              onChangeInput(url, id, img);
+          }
+        }
+    };
 
     const getImg = () => {
         if(imageSrc) {

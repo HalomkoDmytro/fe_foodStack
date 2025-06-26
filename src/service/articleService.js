@@ -22,7 +22,7 @@ const deleteArticle = async (id) => {
     return new ArticleAPI().deleteArticle(id);
 }
 
-const updateOrCreateArticle =  async rawData => {
+const updateOrCreateArticle =  async (rawData) => {
 
     uploadCoverImg(rawData)
         .then(rd => updateLinkToUploadedFile(rd).then(data => {
@@ -64,8 +64,7 @@ const updateLinkToUploadedFile = async data => {
                     if(imgUrl) {
                         par.data = imgUrl;
                     } else {
-    //                     TODO: notify problem with upload img
-                            console.log("notify problem with upload img");
+                        console.log("problem with upload img");
                     }
                     return par;
                 }

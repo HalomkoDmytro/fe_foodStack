@@ -48,7 +48,7 @@ const SearchResult = ({searchRequest=''}) => {
         if(resultList?.content?.length > 0) {
             let arr = [];
             resultList.content.forEach((res, i) => {
-                const imgSrc = res.srcImg ? res.srcImg : '/img/dish_template.png';
+                const imgSrc = res.srcImg ? res.srcImg : '/img/cloche.png';
                 arr.push(<Link  className={"nav nav-search"} key={i}  to={`/article/${res.id}`}>
                     <img src={imgSrc} style={{maxWidth: '200px'}} alt="img should be here" />
                     <div>

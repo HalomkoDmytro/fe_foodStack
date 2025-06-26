@@ -25,6 +25,7 @@ const EditArticle = () => {
     const [paragraphList, addParagraph] = useState([]);
     const [lastId, updateId] = useState(0);
     const [h1Title, updateH1Title] = useState('');
+    const [originCoverImg, setOriginCoveImg] = useState({});
     const [coverImg, setCoveImg] = useState({});
     const [description, updateDescription] = useState('');
     const [theme, setTheme] = useState('');
@@ -37,6 +38,7 @@ const EditArticle = () => {
                 updateDescription(res.description);
                 setTheme(res.theme);
                 setCoveImg({src: res.srcImg});
+                setOriginCoveImg({src: res.srcImg});
                 if(res.paragraph) {
                     addParagraph(res.paragraph.map(par => {
                             return {id: par.id, order: par.orderPosition, type: par.type, data: par.data};
@@ -124,6 +126,7 @@ const EditArticle = () => {
     const onSaveClick = () => {
         updateOrCreateArticle({
             id: idArticle,
+            originSrcImg: originCoverImg,
             srcImg: coverImg.file,
             h1Title,
             theme,

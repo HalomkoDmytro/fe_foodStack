@@ -47,7 +47,7 @@ const ImageGallery = ({theme='DESSERT', getArticleMethod}) => {
 
         if(images && images.length > 0) {
             return images.map((img, i) => {
-                const imgSrc = img.srcImg ? img.srcImg : '/img/dish_template.png';
+                const imgSrc = img.srcImg ? img.srcImg : '/img/cloche.png';
 
                 return (<Link to={`/article/${img.id}`} key={i}>
                    <div className="gallery-item" key={i} onClick={() => {} }>
