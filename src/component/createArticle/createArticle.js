@@ -5,7 +5,7 @@ import TextArea from '../textArea';
 import EditArticleParagraph from '../editArticleParagraph';
 import { useSelector, useDispatch } from 'react-redux';
 import ChoseImg from '../choseImg'
-import {updateOrCreateArticle} from '../../service/articleService';
+import {createArticle} from '../../service/articleService';
 import { useNavigate } from "react-router-dom";
 
 const PARAGRAPH = {
@@ -98,7 +98,7 @@ const CreateArticle = () => {
     }
 
     const onSaveClick = () => {
-        updateOrCreateArticle({
+        createArticle({
             id: null,
             srcImg: coverImg.file,
             h1Title,

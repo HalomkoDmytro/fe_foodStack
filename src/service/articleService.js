@@ -22,7 +22,7 @@ const deleteArticle = async (id) => {
     return new ArticleAPI().deleteArticle(id);
 }
 
-const updateOrCreateArticle =  async (rawData) => {
+const createArticle =  async (rawData) => {
 
     uploadCoverImg(rawData)
         .then(rd => updateLinkToUploadedFile(rd).then(data => {
@@ -38,8 +38,8 @@ const updateOrCreateArticle =  async (rawData) => {
                 }
 
                 return new ArticleAPI().updateArticle(body)
-                        .then((res) => console.log("updateOrCreateArticle res: ", res))
-                        .catch((err) => console.log("updateOrCreateArticle err", err));
+                        .then((res) => console.log("createArticle res: ", res))
+                        .catch((err) => console.log("createArticle err", err));
             }));
 
 }
@@ -90,4 +90,4 @@ const convertParagraph = data => {
     return [];
 }
 
-export {getArticle, getAllArticleList, getArticleList, searchArticleList, updateOrCreateArticle, deleteArticle};
+export {getArticle, getAllArticleList, getArticleList, searchArticleList, createArticle, deleteArticle};
