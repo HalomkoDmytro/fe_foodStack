@@ -5,7 +5,7 @@ import TextArea from '../textArea';
 import EditArticleParagraph from '../editArticleParagraph';
 import ChoseImg from '../choseImg';
 import { useParams } from 'react-router-dom';
-import {createArticle} from '../../service/articleService';
+import {updateArticle} from '../../service/articleService';
 import {deleteParagraph} from '../../service/paragraphService';
 import {getArticle} from '../../service/articleService';
 import { useNavigate } from "react-router-dom";
@@ -124,7 +124,7 @@ const EditArticle = () => {
     }
 
     const onSaveClick = () => {
-        createArticle({
+        updateArticle({
             id: idArticle,
             originSrcImg: originCoverImg,
             srcImg: coverImg.file,

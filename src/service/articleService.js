@@ -44,6 +44,28 @@ const createArticle =  async (rawData) => {
 
 }
 
+const updateArticle =  async (rawData) => {
+
+    uploadCoverImg(rawData)
+        .then(rd => updateLinkToUploadedFile(rd).then(data => {
+                const body = {
+                    id: data.id,
+                    srcImg: data.srcImg,
+                    theme: data.theme,
+                    title: data.h1Title,
+                    description: data.description,
+                    titlePicture: data.titlePicture,
+                    visible: data.visible,
+                    paragraph: convertParagraph(data)
+                }
+
+                return new ArticleAPI().updateArticle(body)
+                        .then((res) => console.log("createArticle res: ", res))
+                        .catch((err) => console.log("createArticle err", err));
+            }));
+
+}
+
 const uploadCoverImg = async data => {
     if(data && data.srcImg) {
         const fileApi = new FileAPI();
@@ -90,4 +112,4 @@ const convertParagraph = data => {
     return [];
 }
 
-export {getArticle, getAllArticleList, getArticleList, searchArticleList, createArticle, deleteArticle};
+export {getArticle, getAllArticleList, getArticleList, searchArticleList, createArticle, deleteArticle, updateArticle};
