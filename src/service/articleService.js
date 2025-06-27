@@ -115,10 +115,9 @@ const createLinkToUploadedFile = async data => {
         data.paragraphList =  data.paragraphList
                 .map(async par =>  {
                     if(par.type !== 'PICTURE') return par;
-
                     const imgUrl = await fileApi.uploadFile(par.file);
                     if(imgUrl) {
-                        par.data = data.imgUrl;
+                        par.data = imgUrl;
                     } else {
                         console.log("problem with upload img");
                     }
