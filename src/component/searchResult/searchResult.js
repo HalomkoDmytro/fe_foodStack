@@ -46,7 +46,7 @@ const SearchResult = ({searchRequest=''}) => {
             return <Progress/>
         }
         if(resultList?.content?.length > 0) {
-            let arr = [];
+            const arr = [];
             resultList.content.forEach((res, i) => {
                 const imgSrc = res.srcImg ? res.srcImg : '/img/cloche.png';
                 arr.push(<Link  className={"nav nav-search"} key={i}  to={`/article/${res.id}`}>
