@@ -9,12 +9,12 @@ const Dropdown = () => {
 
     return (
         <li className="nav-item dropdown" onClick={() => setShow(!show)}>
-            <a className={`nav-link dropdown-toggle ${show ? 'show' : ''}`}
+            <span className={`nav-link dropdown-toggle ${show ? 'show' : ''}`}
                 data-bs-toggle="dropdown"
                 href="#"
                 role="button"
                 aria-haspopup="true"
-                aria-expanded="false">Recipe</a>
+                aria-expanded="false">Recipe</span>
                 <div className={`dropdown-menu ${show ? 'show' : ''}`}>
                       <Link className="dropdown-item" to="/recipe/dessert-list">Deserts</Link>
 {/*                       <Link className="dropdown-item" to="#">Sous</Link> */}

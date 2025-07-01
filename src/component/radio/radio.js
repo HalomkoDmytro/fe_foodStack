@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import RadioOption from './radio-option'
 
 import './radio.css'

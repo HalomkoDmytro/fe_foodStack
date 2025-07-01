@@ -3,7 +3,6 @@ import Pagination from '../pagination';
 import FullWidthCenter from '../fullWidthCenter';
 import {getArticleList} from '../../service/articleService';
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
 import Progress from '../progress';
 
 
@@ -14,7 +13,6 @@ const INIT_PAGING = {pageNumber: 0, pageSize: 8, totalElements: 1, totalPages: 1
 
 const ImageGallery = ({theme='DESSERT', getArticleMethod}) => {
 
-    const dispatch = useDispatch();
     const [images, setImages] = useState();
     const [pagInfo, setPagination] = useState(INIT_PAGING);
     const [isLoading, setLoading] = useState(true);
