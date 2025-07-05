@@ -6,7 +6,9 @@ import FullWidthCenter from '../fullWidthCenter';
 import Progress from '../progress';
 import { useSelector } from 'react-redux';
 
-import './searchResult.css'
+import clocheImg from '../../static/img/cloche.png';
+import emptyPlateImg from '../../static/img/empty_plate.png';
+import './searchResult.css';
 
 const INIT_PAGING = {pageNumber: 0, pageSize: 8, totalElements: 1, totalPages: 1,
     first: true, hasNext: false, hasPrevious: false, last: false };
@@ -48,7 +50,7 @@ const SearchResult = ({searchRequest=''}) => {
         if(resultList?.content?.length > 0) {
             const arr = [];
             resultList.content.forEach((res, i) => {
-                const imgSrc = res.srcImg ? res.srcImg : '/img/cloche.png';
+                const imgSrc = res.srcImg ? res.srcImg : {clocheImg};
                 arr.push(<Link  className={"nav nav-search"} key={i}  to={`/article/${res.id}`}>
                     <img src={imgSrc} style={{maxWidth: '200px'}} alt="img should be here" />
                     <div>
@@ -61,7 +63,7 @@ const SearchResult = ({searchRequest=''}) => {
         } else {
             return <div>
                 <h2>Nothing to show...</h2>
-                <img style={{maxWidth: '400px'}} src={"/img/empty_plate.png"} alt="img should be here" />
+                <img style={{maxWidth: '400px'}} src={emptyPlateImg} alt="img should be here" />
             </div>
         }
     }

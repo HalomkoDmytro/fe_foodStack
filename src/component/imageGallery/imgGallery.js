@@ -5,7 +5,7 @@ import {getArticleList} from '../../service/articleService';
 import { Link } from "react-router-dom";
 import Progress from '../progress';
 
-
+import clocheImg from '../../static/img/cloche.png';
 import './imageGallery.css';
 
 const INIT_PAGING = {pageNumber: 0, pageSize: 8, totalElements: 1, totalPages: 1,
@@ -45,7 +45,7 @@ const ImageGallery = ({theme='DESSERT', getArticleMethod}) => {
 
         if(images && images.length > 0) {
             return images.map((img, i) => {
-                const imgSrc = img.srcImg ? img.srcImg : '/img/cloche.png';
+                const imgSrc = img.srcImg ? img.srcImg : {clocheImg};
 
                 return (<Link to={`/article/${img.id}`} key={i}>
                    <div className="gallery-item" key={i} onClick={() => {} }>

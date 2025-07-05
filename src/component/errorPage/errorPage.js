@@ -1,4 +1,5 @@
 import { useRouteError } from "react-router-dom";
+import errorImage from '../../static/img/error_page.png';
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -11,7 +12,7 @@ export default function ErrorPage() {
                                     width: '100%'}} >
       <div style={{textAlign: 'center'}}>
                 <h1 style={{textAlign: 'center'}}>Oops!</h1>
-                <img src={'/img/error_page.png'} style={{maxWidth: '300px'}} alt="img should be here"/>
+                <img src={errorImage} style={{maxWidth: '300px'}} alt="img should be here"/>
                 <p>Sorry, an unexpected error has occurred.</p>
                 <p>
                   <i>{error.statusText || error.message}</i>
