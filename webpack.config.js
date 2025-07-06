@@ -3,10 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MinCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = (env = {}) => {
+module.exports = (env = 'development') => {
 
-    const {mode = 'development'} = env;
-    const isProd = mode === 'production';
+//     const {mode = 'development'} = env;
+    const isProd = env === 'production';
 
     const getStyleLoader = () => {
         return [
