@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MinCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env = {}) => {
 
@@ -10,7 +10,7 @@ module.exports = (env = {}) => {
 
     const getStyleLoader = () => {
         return [
-            isProd ?  MinCssExtractPlugin.loader : 'style-loader',
+            isProd ?  MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader'
         ]
     };
@@ -32,7 +32,7 @@ module.exports = (env = {}) => {
         ];
 
         if(isProd) {
-            plugins.push(new MinCssExtractPlugin({
+            plugins.push(new MiniCssExtractPlugin({
                 filename: 'main-[hash:8].css'
             }))
         }
@@ -43,15 +43,39 @@ module.exports = (env = {}) => {
     return {
         mode: isProd ? 'production' : 'development',
 
+        performance: {
+            maxEntrypointSize: 400000, // 400KB
+            maxAssetSize: 1000000,     // 1MB for images
+            hints: 'warning'
+        },
+
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: isProd ? 'main-[hash:8].js' : 'bundle.[contenthash].js',
+            filename: isProd ? 'main-[contenthash:8].js' : 'bundle.[contenthash].js',
             clean: true
+        },
+
+        optimization: {
+            splitChunks: {
+                chunks: 'all',
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendors',
+                        chunks: 'all',
+                    },
+                    common: {
+                        minChunks: 2,
+                        chunks: 'all',
+                        enforce: true
+                    }
+                }
+            }
         },
 
         module: {
             rules: [
-                // Loading images
+                // Loading js
                 {
                     test: /\.(js|jsx)$/,
                     exclude: /node_modules/,
@@ -68,8 +92,7 @@ module.exports = (env = {}) => {
                         {
                             loader: 'file-loader',
                             options: {
-                                outputPath: 'images',
-                                name: '[name]-[sha1:hash:7].[ext]'
+                                filename: 'images/[name]-[hash:7][ext]'
                             }
                         }
                     ]
@@ -81,8 +104,7 @@ module.exports = (env = {}) => {
                         {
                             loader: 'file-loader',
                             options: {
-                                outputPath: 'fonts',
-                                name: '[name].[ext]'
+                                 filename: 'fonts/[name][ext]'
                             }
                         }
                     ]
@@ -95,6 +117,9 @@ module.exports = (env = {}) => {
         devServer: {
             open: true,
             historyApiFallback: true,
+            hot: true, // Enable hot module replacement
+            port: 3000,
         }
+
     }
 }

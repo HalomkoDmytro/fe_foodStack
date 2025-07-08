@@ -1,15 +1,16 @@
+import React from 'react';
 import { createBrowserRouter } from "react-router-dom";
-import Home from '../component/home';
 import AppBody from '../component/appBody';
-import DesertList from '../component/recipe/desertList';
-import MainCourseList from '../component/recipe/mainCourseList';
-import CreateArticle from '../component/createArticle';
-import EditArticle from '../component/editArticle';
-import Encyclopedia from '../component/encyclopedia';
-import SearchResult from '../component/searchResult';
-import Article from '../component/article';
-import Login from '../component/login';
-import ErrorPage from '../component/errorPage';
+const Home = React.lazy(() => import('../component/home'));
+const DesertList = React.lazy(() => import('../component/recipe/desertList'));
+const MainCourseList = React.lazy(() => import('../component/recipe/mainCourseList'));
+const CreateArticle = React.lazy(() => import('../component/createArticle'));
+const EditArticle = React.lazy(() => import('../component/editArticle'));
+const Encyclopedia = React.lazy(() => import('../component/encyclopedia'));
+const SearchResult = React.lazy(() => import('../component/searchResult'));
+const Article = React.lazy(() => import('../component/article'));
+const Login = React.lazy(() => import('../component/login'));
+const ErrorPage = React.lazy(() => import('../component/errorPage'));
 
 const router = createBrowserRouter([
     {
