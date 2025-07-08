@@ -4,10 +4,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MinCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = (env) => {
+module.exports = (env = {}) => {
 
-//     const {mode = 'development'} = env;
-    const isProd = env === 'production';
+    const isProd = env.buildType === 'production';
 
     const getStyleLoader = () => {
         return [
@@ -28,7 +27,7 @@ module.exports = (env) => {
               inject: 'body',
             }),
             new webpack.DefinePlugin({
-                  "process.env.name": JSON.stringify(env),
+                  "process.env.ENV_NAME": JSON.stringify(env.buildType),
             })
         ];
 

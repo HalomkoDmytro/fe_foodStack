@@ -1,4 +1,4 @@
-const API = process.env.name === 'production' ? 'https://be-foodstack.onrender.com' : 'https://locahost:8080';
+const API = process.env.ENV_NAME === 'production' ? 'https://be-foodstack.onrender.com' : 'https://locahost:8080';
 
 const getOptions = method => ({
   method,
