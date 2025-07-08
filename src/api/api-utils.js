@@ -1,4 +1,4 @@
-const API = 'http://localhost:8080';
+const API = process.env.name === 'production' ? 'https://be-foodstack.onrender.com' : 'https://locahost:8080';
 
 const getOptions = method => ({
   method,
@@ -27,9 +27,10 @@ const basicRequest = async (path, requestMethod = 'GET', body) => {
       options.body = JSON.stringify(body);
     }
     const response = await fetch(url, options);
-    const data = await response.json();
-
-    return data;
+    if(response){
+        const data = await response.json();
+        return data;
+    }
   } catch (error) {
     console.log(error);
   }

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 
 import Header from './header';
 
@@ -10,25 +10,22 @@ import ErrorBoundry from './error-boundry';
 import {router} from '../api/route-info';
 import { RouterProvider } from "react-router-dom";
 
-import './app.css';
 
-export default class App extends Component {
-    state = {
-        hasError: false
-    }
+const App = () => {
 
-    componentDidCatch() {
-        this.setState({ hasError: true });
-    }
+//     const [hasError, setHasError] = useState(false);
+//     componentDidCatch() {
+//         this.setState({ hasError: true });
+//     }
 
-    render() {
-      return (
+    return (
         <div className="app">
             <ErrorBoundry>
                 <RouterProvider router={router} />
             </ErrorBoundry>
         </div>
-        );
-      }
+    );
+
 }
 
+export default App;

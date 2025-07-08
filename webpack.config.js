@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MinCssExtractPlugin = require('mini-css-extract-plugin');
@@ -17,15 +18,18 @@ module.exports = (env = 'development') => {
 
     const getPlugins = () => {
         const plugins = [
-              new CopyWebpackPlugin({
-                  patterns: [
-                    { from: 'public/bootstrap.min.css', to: 'bootstrap.min.css' }
-                  ]
-                }),
-              new HtmlWebpackPlugin({
-                  template: './public/index.html',
-                  inject: 'body',
+            new CopyWebpackPlugin({
+              patterns: [
+                { from: 'public/bootstrap.min.css', to: 'bootstrap.min.css' }
+              ]
             }),
+            new HtmlWebpackPlugin({
+              template: './public/index.html',
+              inject: 'body',
+            }),
+            new webpack.DefinePlugin({
+                  "process.env.name": JSON.stringify(env),
+            })
         ];
 
         if(isProd) {
@@ -91,6 +95,7 @@ module.exports = (env = 'development') => {
 
         devServer: {
             open: true,
+            historyApiFallback: true,
         }
     }
 }
