@@ -19,7 +19,8 @@ module.exports = (env = {}) => {
         const plugins = [
             new CopyWebpackPlugin({
               patterns: [
-                { from: 'public/bootstrap.min.css', to: 'bootstrap.min.css' }
+                { from: 'public/bootstrap.min.css', to: 'bootstrap.min.css' },
+                { from: 'public/_redirects', to: '_redirects' }
               ]
             }),
             new HtmlWebpackPlugin({
