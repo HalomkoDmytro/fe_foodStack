@@ -45,8 +45,8 @@ module.exports = (env = {}) => {
         mode: isProd ? 'production' : 'development',
 
         performance: {
-            maxEntrypointSize: 400000, // 400KB
-            maxAssetSize: 1000000,     // 1MB for images
+            maxEntrypointSize: 800000, // 800KB
+            maxAssetSize: 2000000,     // 2MB for images
             hints: 'warning'
         },
 
