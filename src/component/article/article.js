@@ -41,7 +41,6 @@ const Article = () => {
                 setArticle(res);
             } catch (error) {
                 console.error('Error fetching article:', error);
-                // Handle error (show error message, redirect, etc.)
             } finally {
                 setLoading(false);
             }
