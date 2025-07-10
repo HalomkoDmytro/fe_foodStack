@@ -2,15 +2,13 @@ import React from 'react';
 import ImageGallery from '../imageGallery';
 import {getAllArticleList} from '../../service/articleService';
 
-
-import './home.css';
+const HOME_TITLE = "What to cook today... ?";
 
 const Home = () => {
 
     return (
         <div>
-            <h1>Home</h1>
-
+            <h1>{HOME_TITLE}</h1>
             <ImageGallery getArticleMethod={getAllArticleList}/>
         </div>
     );
