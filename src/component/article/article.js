@@ -1,86 +1,134 @@
-import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
-import {getArticle} from '../../service/articleService';
-import {hasRole} from '../../service/loginService';
+import React, { useEffect, useState, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { getArticle, deleteArticle } from '../../service/articleService';
+import { hasRole } from '../../service/loginService';
 import Progress from '../progress';
 import FullWidthCenter from '../fullWidthCenter';
 import ListGroup from '../listGroup';
 import Button from '../button';
 import Modal from '../modal';
-import {deleteArticle} from '../../service/articleService';
-import { useNavigate } from 'react-router-dom';
-
 
 const Article = () => {
-
     const [article, setArticle] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const [isEditor, setEditor] = useState(false);
     const [isModalDelete, setShowModalDelete] = useState(false);
+
     const { idArticle } = useParams();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        getArticle(idArticle).then(res => {
-            setArticle(res);
-            setLoading(false);
-        });
-        if(hasRole('ROLE_ADMIN')) {
-            setEditor(true)
-        } else {
-            setEditor(false);
+    const handleDelete = useCallback(async () => {
+        try {
+            await deleteArticle(idArticle);
+            navigate("/home");
+        } catch (error) {
+            console.error('Error deleting article:', error);
         }
+    }, [idArticle, navigate]);
+
+    const handleEdit = useCallback(() => {
+        navigate(`/edit-article/${idArticle}`);
+    }, [idArticle, navigate]);
+
+    const handleShowDeleteModal = useCallback(() => {
+        setShowModalDelete(true);
     }, []);
 
-    const getParagraph = (par) => {
+    useEffect(() => {
+        const fetchArticle = async () => {
+            try {
+                const res = await getArticle(idArticle);
+                setArticle(res);
+            } catch (error) {
+                console.error('Error fetching article:', error);
+                // Handle error (show error message, redirect, etc.)
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchArticle();
+        setEditor(hasRole('ROLE_ADMIN'));
+    }, [idArticle]);
+
+    // Render paragraph based on type
+    const renderParagraph = (par) => {
         switch (par.type) {
             case "TEXT":
-                return <div key={par.id}>{par.data}</div>
+                return <div key={par.id}>{par.data}</div>;
             case "PICTURE":
-                return <div><img key={par.id} src={par.data} alt="Img should be here" style={{ height: '300px' }}/></div>
+                return (
+                    <div key={par.id}>
+                        <img
+                            src={par.data}
+                            alt="Article content"
+                            style={{ height: '300px' }}
+                        />
+                    </div>
+                );
             case "LIST_GROUPS":
-                return <ListGroup key={par.id} data={par.data}/>
+                return <ListGroup key={par.id} data={par.data} />;
             default:
-                return ''
+                return null;
         }
+    };
+
+    // Loading state
+    if (isLoading) {
+        return <Progress color="BLUE" />;
     }
 
-    const getArticleComp = () => {
-        if(isLoading) {
-            return <Progress color={"BLUE"}/>
-        }
-        if (article) {
-            const title = article.title ? <h1>{article.title}</h1> : '';
-            const paragraphList = !article.paragraph ? '' : article.paragraph.map(par =>
-                <FullWidthCenter key={par.id}>
-                    {getParagraph(par)}
-                </FullWidthCenter>
-            ) ;
-
-            return <div key={article.id}>
-                    <FullWidthCenter>{title}</FullWidthCenter>
-                    {paragraphList}
-                </div>
-        }
-    }
-
-    const getModalDelete = () => {
-        return isModalDelete ?  <Modal isOpen={isModalDelete} setOpen={setShowModalDelete}
-                                               headerText="Warning!"
-                                               modalText="This Article will be deleted."
-                                               optBtnText={"Delete"}
-                                               optOnClick={()=>{deleteArticle(idArticle).then(() => navigate("/home"));}}
-                                               optBtnTextStyle={"btn-danger"}/> : '';
+    // No article found
+    if (!article) {
+        return <div>Article not found</div>;
     }
 
     return (
         <div>
-            {getArticleComp()}
-            {getModalDelete()}
-            {isEditor && <Button text={"Edit"} btnStyle={"btn-warning"} onClick={()=> navigate(`/edit-article/${idArticle}`)}/>}
-            {isEditor && <Button text={"Delete"} btnStyle={"btn-danger"} onClick={()=> setShowModalDelete(true)}/>}
+            <div key={article.id}>
+                {article.title && (
+                    <FullWidthCenter>
+                        <h1>{article.title}</h1>
+                    </FullWidthCenter>
+                )}
+
+                {article.paragraph?.map(par => (
+                    <FullWidthCenter key={par.id}>
+                        {renderParagraph(par)}
+                    </FullWidthCenter>
+                ))}
+            </div>
+
+            {/* Delete Confirmation Modal */}
+            {isModalDelete && (
+                <Modal
+                    isOpen={isModalDelete}
+                    setOpen={setShowModalDelete}
+                    headerText="Warning!"
+                    modalText="This Article will be deleted."
+                    optBtnText="Delete"
+                    optOnClick={handleDelete}
+                    optBtnTextStyle="btn-danger"
+                />
+            )}
+
+            {/* Editor Actions */}
+            {isEditor && (
+                <div>
+                    <Button
+                        text="Edit"
+                        btnStyle="btn-warning"
+                        onClick={handleEdit}
+                    />
+                    <Button
+                        text="Delete"
+                        btnStyle="btn-danger"
+                        onClick={handleShowDeleteModal}
+                    />
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default Article;
