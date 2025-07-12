@@ -1,25 +1,27 @@
 import ArticleAPI from '../api/articleAPI'
 import FileAPI from '../api/fileAPI'
 
+const articleAPI = new ArticleAPI();
+const fileAPI = new FileAPI();
 
 const getArticle = async (id) => {
-    return new ArticleAPI().getArticle(id);
+    return articleAPI.getArticle(id);
 }
 
 const getAllArticleList = async ({page = 0, size = 8, sortBy = 'id', sortDir = "DESC"}) => {
-    return new ArticleAPI().getAllArticle({page, size, sortBy, sortDir});
+    return articleAPI.getAllArticle({page, size, sortBy, sortDir});
 }
 
 const getArticleList = async ({theme = 'DESSERT', page = 0, size = 8, sortBy = 'id', sortDir = "DESC"}) => {
-    return new ArticleAPI().getArticleByTheme({theme, page, size, sortBy, sortDir});
+    return articleAPI.getArticleByTheme({theme, page, size, sortBy, sortDir});
 }
 
 const searchArticleList = async ({request, page = 0, size = 4, sortBy = 'id', sortDir = "DESC"}) => {
-    return new ArticleAPI().searchArticleListApi({request, page, size, sortBy, sortDir});
+    return articleAPI.searchArticleListApi({request, page, size, sortBy, sortDir});
 }
 
 const deleteArticle = async (id) => {
-    return new ArticleAPI().deleteArticle(id);
+    return articleAPI.deleteArticle(id);
 }
 
 const createArticle =  async (rawData) => {
@@ -37,7 +39,7 @@ const createArticle =  async (rawData) => {
                     paragraph: convertParagraph(data)
                 }
 
-                return new ArticleAPI().updateArticle(body)
+                return articleAPI.updateArticle(body)
                         .then((res) => console.log("createArticle res: ", res))
                         .catch((err) => console.log("createArticle err", err));
             })
@@ -60,15 +62,14 @@ const updateArticle =  async (rawData) => {
                     paragraph: convertParagraph(data)
                 }
 
-                return new ArticleAPI().updateArticle(body);
+                return articleAPI.updateArticle(body);
             })
         );
 }
 
 const updateCoverImg = async data => {
     if(data?.srcImgFile && data.isUpdated) {
-        const fileApi = new FileAPI();
-        const imgUrl = await fileApi.uploadFile(data.srcImgFile);
+        const imgUrl = await fileAPI.uploadFile(data.srcImgFile);
         data.srcImg = imgUrl;
     }
 
@@ -77,8 +78,7 @@ const updateCoverImg = async data => {
 
 const uploadCoverImg = async data => {
     if(data?.srcImg) {
-        const fileApi = new FileAPI();
-        const imgUrl = await fileApi.uploadFile(data.srcImg);
+        const imgUrl = await fileAPI.uploadFile(data.srcImg);
         data.srcImg = imgUrl;
     }
 
@@ -86,36 +86,34 @@ const uploadCoverImg = async data => {
 }
 
 const updateLinkToUploadedFile = async data => {
-        const fileApi = new FileAPI();
         data.paragraphList =  data.paragraphList
-                .map(async par =>  {
-                    if(par.type !== 'PICTURE') return par;
+            .map(async par =>  {
+                if(par.type !== 'PICTURE') return par;
 
-                    if(par.isChanged) {
-                        const imgUrl = await fileApi.uploadFile(par.file);
-                        if(imgUrl) {
-                            par.data = imgUrl;
-                        } else {
-                            console.log("problem with upload img");
-                        }
-                        return par;
+                if(par.isChanged) {
+                    const imgUrl = await fileAPI.uploadFile(par.file);
+                    if(imgUrl) {
+                        par.data = imgUrl;
                     } else {
-                        return par;
+                        console.log("problem with upload img");
                     }
-
+                    return par;
+                } else {
+                    return par;
                 }
-            );
+
+            }
+        );
 
         data.paragraphList = await Promise.all(data.paragraphList);
         return data;
 }
 
 const createLinkToUploadedFile = async data => {
-        const fileApi = new FileAPI();
         data.paragraphList =  data.paragraphList
                 .map(async par =>  {
                     if(par.type !== 'PICTURE') return par;
-                    const imgUrl = await fileApi.uploadFile(par.file);
+                    const imgUrl = await fileAPI.uploadFile(par.file);
                     if(imgUrl) {
                         par.data = imgUrl;
                     } else {
@@ -130,19 +128,19 @@ const createLinkToUploadedFile = async data => {
 }
 
 const convertParagraph = data => {
-
-    if(data.paragraphList) {
-        return  data.paragraphList.map((par) => {
-
-            return {
-                orderPosition: par.order,
-                type: par.type,
-                data: par.data,
-            }
-        });
-    }
-
-    return [];
+    return data.paragraphList?.map(par => ({
+        orderPosition: par.order,
+        type: par.type,
+        data: par.data,
+    })) || [];
 }
 
-export {getArticle, getAllArticleList, getArticleList, searchArticleList, createArticle, deleteArticle, updateArticle};
+export {
+    getArticle,
+    getAllArticleList,
+    getArticleList,
+    searchArticleList,
+    createArticle,
+    deleteArticle,
+    updateArticle
+};
